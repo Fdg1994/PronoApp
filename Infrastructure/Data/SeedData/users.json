@@ -1,0 +1,37 @@
+[
+  {
+    "UserName": "John Doe",
+    "Email": "johndoe@example.com",
+    "PasswordHash": "hashedpassword",
+    "PictureUrl": "https://example.com/pictures/johndoe.jpg",
+    "CompanyBranch": "IT",
+    "Points": 100,
+    "Role": "Admin",
+    "Companies": [
+      {
+        "Name": "Acme Inc.",
+        "PictureUrl": "https://example.com/pictures/acme.jpg"
+      },
+      {
+        "Name": "Example Corp.",
+        "PictureUrl": "https://example.com/pictures/example.jpg"
+      }
+    ]
+  },
+  {
+    "UserName": "Jane Smith",
+    "Email": "janesmith@example.com",
+    "PasswordHash": "hashedpassword",
+    "PictureUrl": "https://example.com/pictures/janesmith.jpg",
+    "CompanyBranch": "Management",
+    "Points": 50,
+    "Role": "User",
+    "Companies": [
+      {
+        "Name": "Acme Inc.",
+        "PictureUrl": "https://example.com/pictures/acme.jpg"
+      }
+    ]
+  }
+]
+  
