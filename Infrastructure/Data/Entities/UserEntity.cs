@@ -1,12 +1,15 @@
 using Azure;
+using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.Data.Entities
 {
     public class UserEntity : BaseEntity
     {
+        [Required]
         public string UserName { get; set; }
         public string Email { get; set; }
-        public string PasswordHash { get; set; }
+        public byte[] PasswordHash { get; set; }
+        public byte[] PasswordSalt { get; set; }
         public string PictureUrl { get; set; }
         public string CompanyBranch { get; set; }
         public int Points { get; set; }
