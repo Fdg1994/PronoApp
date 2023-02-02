@@ -1,7 +1,12 @@
-.navbar-bar {
-    text-align: center;
-}
 
 .btn {
     background-color: #ffc438;
+}
+
+.btn:hover {
+    background-color: #d99a08;
+}
+
+.dropdown-toggle, .dropdown-item {
+    cursor: pointer;
 }
