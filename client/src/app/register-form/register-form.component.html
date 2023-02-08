@@ -27,6 +27,15 @@
         >
     </div>
 
+    <div class="mb-3">
+        <input type="text" 
+               class="form-control" 
+               name="email"
+               [(ngModel)]="model.email"
+               placeholder="Email"
+        >
+    </div>
+
     <div class="text-center">
         <button class="btn btn-success me-2" type="submit">Register</button>
         <button class="btn btn-success" type="button" (click)="cancel()">Cancel</button>

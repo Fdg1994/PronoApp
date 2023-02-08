@@ -1,4 +1,5 @@
 using Azure;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.Data.Entities
@@ -13,6 +14,8 @@ namespace Infrastructure.Data.Entities
         public string PictureUrl { get; set; }
         public string CompanyBranch { get; set; }
         public int Points { get; set; }
+
+        [DefaultValue(1)]
         public UserRole Role { get; set; }
         public ICollection<CompanyEntity> Companies { get; set; }
     }
