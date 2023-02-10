@@ -14,9 +14,7 @@ namespace Infrastructure.Data.Entities
         public string PictureUrl { get; set; }
         public string CompanyBranch { get; set; }
         public int Points { get; set; }
-
-        [DefaultValue(1)]
-        public UserRole Role { get; set; }
+        public UserRole Role { get; set; } = UserRole.User;
         public ICollection<CompanyEntity> Companies { get; set; }
     }
 

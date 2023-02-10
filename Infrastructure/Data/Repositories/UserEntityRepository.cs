@@ -15,7 +15,7 @@ namespace Infrastructure.Data.Repositories
         public async Task<UserEntity> GetUserByIdAsync(int id)
         {
             return await _context.Users
-                .FirstOrDefaultAsync(p => p.Id == id);
+                .SingleOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<IReadOnlyList<UserEntity>> GetUsersAsync()
