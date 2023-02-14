@@ -4,7 +4,7 @@ namespace API.DTOs
     {
         public string Username { get; set; }
         public string Role { get; set; }
-        public string Points { get; set; }
+        public int Points { get; set; }
         public string Token { get; set; }
     }
 }
