@@ -17,13 +17,15 @@
           </li>
         </ul>
 
-        <div class="dropdown" *ngIf="accountService.currentUser$ | async" dropdown>
-          <a class="dropdown-toggle text-light text-decoration-none" dropdownToggle>Welcome user</a>
+        <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
+          <a class="dropdown-toggle text-light text-decoration-none" dropdownToggle>Welcome {{user.username}}</a>
           <div class="dropdown-menu mt-3" *dropdownMenu>
             <a class="dropdown-item">Edit Profile</a>
             <a class="dropdown-item" (click)="logout()">Logout</a>
           </div>
+          <span class="text-light m-3">{{user.points}} points</span>
         </div>
+
 
         <form #loginForm="ngForm" *ngIf="!(accountService.currentUser$ | async)" class="d-flex" (ngSubmit)="login()" autocomplete="off">
           <input 

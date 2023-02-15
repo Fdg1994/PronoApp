@@ -7,6 +7,15 @@
     background-color: #d99a08;
 }
 
-.dropdown-toggle, .dropdown-item {
+.dropdown-toggle, .dropdown-item:hover {
     cursor: pointer;
+}
+
+.dropdown-menu {
+    background-color: #ffc438;
+    border-radius: 0;
+}
+
+.dropdown-item:hover {
+    background-color: #d99a08;
 }

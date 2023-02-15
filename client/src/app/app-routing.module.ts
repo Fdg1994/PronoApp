@@ -8,8 +8,14 @@ import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
   {path:'',component: HomeComponent},
-  {path:'members',component: MemberListComponent},
-  {path:'members/:id',component: MemberDetailComponent},
+  {path:'members',component: MemberListComponent,
+    children: [
+      {
+          path:':id',
+          component: MemberDetailComponent
+      }     
+    ]
+  },
   {path:'admin',component: AdminPanelComponent,canActivate:[AuthGuard]},
   {path:'**',component: HomeComponent, pathMatch: 'full'}
 ];
