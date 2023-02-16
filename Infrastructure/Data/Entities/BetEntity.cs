@@ -12,11 +12,9 @@ namespace Infrastructure.Data.Entities
         public DateTime CloseBetTime { get; set; }
         public BetStatus Status { get; set; }
         public int BetAmount { get; set; }
-        public string TeamOutcome { get; set; }
+        public PredictedOutcome PredictedOutcome { get; set; }
         public  int UserEntityId { get; set; }
         public UserEntity User { get; set; }
-        public int GameEntityId { get; set; }
-        public GameEntity Game { get; set; }
     }
 
     public enum BetStatus
@@ -25,5 +23,12 @@ namespace Infrastructure.Data.Entities
         Won,
         Lost,
         Refunded
+    }
+
+    public enum PredictedOutcome
+    {
+        Team1,
+        Team2,
+        Draw
     }
 }

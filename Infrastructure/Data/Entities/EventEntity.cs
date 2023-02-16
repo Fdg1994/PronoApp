@@ -6,5 +6,6 @@ namespace Infrastructure.Data.Entities
         public DateTime StartTimeEvent { get; set; }
         public DateTime EndTimeEvent { get; set; }
         public ICollection<GameEntity> Games { get; set; }
+        public ICollection<PredictionGroupEntity> PredictionGroups { get; set; }
     }
 }

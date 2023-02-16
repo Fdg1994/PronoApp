@@ -12,10 +12,13 @@ namespace Infrastructure.Data.Entities
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public string PictureUrl { get; set; }
-        public string CompanyBranch { get; set; }
+        public string Branch { get; set; }
         public int Points { get; set; }
         public UserRole Role { get; set; } = UserRole.User;
-        public ICollection<CompanyEntity> Companies { get; set; }
+        public int CompanyEntityId { get; set; }
+        public CompanyEntity Company { get; set; }
+        public CompanyRole CompanyRole { get; set; } = CompanyRole.Member;
+        public ICollection<BetEntity> Bets { get; set; }
     }
 
     public enum UserRole
@@ -23,4 +26,10 @@ namespace Infrastructure.Data.Entities
         Admin,
         User
     }
+
+       public enum CompanyRole
+    {
+        Manager,
+        Member
+    } 
 }
