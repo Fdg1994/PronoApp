@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using API.DTOs;
@@ -53,6 +54,7 @@ namespace API.Controllers
                 Username = user.UserName,
                 Role = user.Role.ToString(),
                 Points = user.Points,
+                Company = user.Company.Name,
                 Token = _tokenService.CreateToken(user)
             };
         }
@@ -78,6 +80,7 @@ namespace API.Controllers
                 Username = user.UserName,
                 Role = user.Role.ToString(),
                 Points = user.Points,
+                Company = user.Company.Name,
                 Token = _tokenService.CreateToken(user)
             };
         }

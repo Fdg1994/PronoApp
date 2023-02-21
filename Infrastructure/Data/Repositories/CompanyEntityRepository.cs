@@ -1,10 +1,11 @@
 using Infrastructure.Data.Entities;
+using Infrastructure.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 
 namespace Infrastructure.Data.Repositories
 {
-    public class CompanyEntityRepository
+    public class CompanyEntityRepository:ICompanyEntityRepository
     {
         private readonly DataContext _context;
         public CompanyEntityRepository(DataContext context)

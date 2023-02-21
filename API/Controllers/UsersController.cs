@@ -1,3 +1,4 @@
+using API.DTOs;
 using Data.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Data.Entities;
@@ -26,9 +27,17 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserEntity>> GetUser(int id)
+        [AllowAnonymous]
+        public async Task<ActionResult<UserDTO>> GetUser(int id)
         {
-            return await _repo.GetUserByIdAsync(id);
+            var user = await _repo.GetUserByIdAsync(id);
+            
+            return new UserDTO
+            {
+                Username = user.UserName,
+                Role = user.Role.ToString(),
+                Points = user.Points
+            };
         }
     }
 }
