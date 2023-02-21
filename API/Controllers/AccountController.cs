@@ -26,16 +26,26 @@ namespace API.Controllers
         {
             if (await UserExists(registerDTO.Username)) return BadRequest("Username is taken.");
 
+            if (await CompanyExists(registerDTO.CompanyName)) return BadRequest("Company already exists.");
+
             using var hmac = new HMACSHA512();
+
+            var company = new CompanyEntity
+            {
+                Name = registerDTO.CompanyName.ToLower(),
+            };
 
             var user = new UserEntity
             {
                 UserName = registerDTO.Username.ToLower(),
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDTO.Password)),
-                PasswordSalt = hmac.Key
+                PasswordSalt = hmac.Key,
+                CompanyEntityId = company.Id,
+                Company = company
             };
 
             _context.Users.Add(user);
+            _context.Companies.Add(company);
             await _context.SaveChangesAsync();
 
             return new UserDTO
@@ -75,6 +85,11 @@ namespace API.Controllers
         private async Task<bool> UserExists(string username)
         {
             return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
+        }
+
+        private async Task<bool> CompanyExists(string name)
+        {
+            return await _context.Companies.AnyAsync(x => x.Name == name.ToLower());
         }
     }
 }
