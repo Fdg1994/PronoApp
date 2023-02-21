@@ -21,9 +21,18 @@ namespace API.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult<IReadOnlyList<UserEntity>>> GetUsers()
+        public async Task<ActionResult<IReadOnlyList<UserDTO>>> GetUsers()
         {
-            return Ok(await _repo.GetUsersAsync());
+            var users = await _repo.GetUsersAsync();
+            var userDtos = users.Select(u => new UserDTO
+            {
+                Username = u.UserName,
+                Role = u.Role.ToString(),
+                Points = u.Points,
+                Company = u.Company.Name
+            }).ToList();
+
+            return Ok(userDtos);
         }
 
         [HttpGet("{id}")]
@@ -31,12 +40,13 @@ namespace API.Controllers
         public async Task<ActionResult<UserDTO>> GetUser(int id)
         {
             var user = await _repo.GetUserByIdAsync(id);
-            
+
             return new UserDTO
             {
                 Username = user.UserName,
                 Role = user.Role.ToString(),
-                Points = user.Points
+                Points = user.Points,
+                Company = user.Company.Name
             };
         }
     }

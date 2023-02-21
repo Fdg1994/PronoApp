@@ -15,12 +15,15 @@ namespace Infrastructure.Data.Repositories
         public async Task<UserEntity> GetUserByIdAsync(int id)
         {
             return await _context.Users
+                .Include(u => u.Company)
                 .SingleOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<IReadOnlyList<UserEntity>> GetUsersAsync()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users
+            .Include(u => u.Company)
+            .ToListAsync();
         }
     }
 }
