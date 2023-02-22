@@ -34,7 +34,11 @@ namespace API.Controllers
             var company = new CompanyEntity
             {
                 Name = registerDTO.CompanyName.ToLower(),
+                Members = new List<UserEntity>()
             };
+
+            _context.Companies.Add(company);
+            await _context.SaveChangesAsync();
 
             var user = new UserEntity
             {
@@ -45,8 +49,9 @@ namespace API.Controllers
                 Company = company
             };
 
+            company.Members.Add(user);
+
             _context.Users.Add(user);
-            _context.Companies.Add(company);
             await _context.SaveChangesAsync();
 
             return new UserDTO

@@ -20,7 +20,9 @@ namespace Infrastructure.Data.Repositories
 
         public async Task<IReadOnlyList<CompanyEntity>> GetCompaniesAsync()
         {
-            return await _context.Companies.ToListAsync();
+            return await _context.Companies
+            .Include(c => c.Members)
+            .ToListAsync();
         }
         public async Task AddUserToCompanyAsync(int companyId, UserEntity user)
         {

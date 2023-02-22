@@ -1,3 +1,4 @@
+using API.DTOs;
 using Infrastructure.Data;
 using Infrastructure.Data.Entities;
 using Infrastructure.Data.Interfaces;
@@ -19,9 +20,17 @@ namespace API.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult<IReadOnlyList<CompanyEntity>>> GetCompanies()
+        public async Task<ActionResult<IReadOnlyList<CompanyDTO>>> GetCompanies()
         {
-            return Ok(await _repo.GetCompaniesAsync());
+            var companies = await _repo.GetCompaniesAsync();
+            var companyDtos = companies.Select(c => new CompanyDTO
+            {
+                Name = c.Name,
+                PictureUrl = c.PictureUrl,
+                Members = c.Members.Select(m => m.UserName).ToList()
+            }).ToList();
+
+            return Ok(companyDtos);
         }
     }
 }
