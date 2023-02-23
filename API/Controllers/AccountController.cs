@@ -68,6 +68,7 @@ namespace API.Controllers
         public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == loginDTO.Username);
+            var company = await _context.Companies.FirstOrDefaultAsync(c => c.Id == user.CompanyEntityId);
 
             if (user == null) return Unauthorized("User does not exist");
 
@@ -83,9 +84,10 @@ namespace API.Controllers
             return new UserDTO
             {
                 Username = user.UserName,
-                Role = user.Role.ToString(),
+                Role = user.Role.ToString().ToLower(),
                 Points = user.Points,
-                Company = user.Company.Name,
+                Company = company.Name.ToString().ToLower(),
+                CompanyRole = user.CompanyRole.ToString().ToLower(),
                 Token = _tokenService.CreateToken(user)
             };
         }

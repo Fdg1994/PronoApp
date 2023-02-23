@@ -8,9 +8,9 @@ namespace Infrastructure.Data.Entities
 {
     public class BetEntity : BaseEntity
     {
-        public DateTime OpenBetTime { get; set; }
+        public DateTime OpenBetTime { get; set; } = DateTime.Now;
         public DateTime CloseBetTime { get; set; }
-        public BetStatus Status { get; set; }
+        public BetStatus Status { get; set; } = BetStatus.Placed;
         public int BetAmount { get; set; }
         public PredictedOutcome PredictedOutcome { get; set; }
         public  int UserEntityId { get; set; }

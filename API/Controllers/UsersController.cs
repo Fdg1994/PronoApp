@@ -10,12 +10,10 @@ namespace API.Controllers
     [Authorize]
     public class UsersController : BaseApiController
     {
-        private readonly DataContext _context;
         private readonly IUserEntityRepository _repo;
 
-        public UsersController(DataContext context, IUserEntityRepository repo)
+        public UsersController(IUserEntityRepository repo)
         {
-            _context = context;
             _repo = repo;
         }
 

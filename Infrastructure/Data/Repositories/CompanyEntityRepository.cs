@@ -15,7 +15,8 @@ namespace Infrastructure.Data.Repositories
         public async Task<CompanyEntity> GetCompanyByIdAsync(int id)
         {
             return await _context.Companies
-                .SingleOrDefaultAsync(p => p.Id == id);
+            .Include(c => c.Members)
+            .SingleOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<IReadOnlyList<CompanyEntity>> GetCompaniesAsync()
@@ -24,8 +25,9 @@ namespace Infrastructure.Data.Repositories
             .Include(c => c.Members)
             .ToListAsync();
         }
-        public async Task AddUserToCompanyAsync(int companyId, UserEntity user)
+        public async Task AddUserToCompanyAsync(int companyId, int userId)
         {
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.Id == userId);
             var company = await GetCompanyByIdAsync(companyId);
             if (company == null)
             {

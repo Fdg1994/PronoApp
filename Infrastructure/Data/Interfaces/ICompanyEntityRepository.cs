@@ -6,6 +6,6 @@ namespace Infrastructure.Data.Interfaces
     {
         Task<CompanyEntity> GetCompanyByIdAsync(int id);
         Task<IReadOnlyList<CompanyEntity>> GetCompaniesAsync();
-        Task AddUserToCompanyAsync(int companyId, UserEntity user);
+        Task AddUserToCompanyAsync(int companyId, int userId);
     }
 }

@@ -25,5 +25,7 @@ namespace Infrastructure.Data.Repositories
             .Include(u => u.Company)
             .ToListAsync();
         }
+
+        
     }
 }
