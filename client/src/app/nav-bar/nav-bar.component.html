@@ -12,7 +12,7 @@
           <li class="nav-item">
             <a class="nav-link" routerLink="/members" routerLinkActive="active">Members</a>
           </li>
-          <li class="nav-item" *ngIf="model.role=='Admin'">
+          <li class="nav-item" *ngIf="user.role==='admin'">
             <a class="nav-link" routerLink="/admin">Admin Panel</a>
           </li>
         </ul>
@@ -30,13 +30,13 @@
         <form #loginForm="ngForm" *ngIf="!(accountService.currentUser$ | async)" class="d-flex" (ngSubmit)="login()" autocomplete="off">
           <input 
             name="username"
-            [(ngModel)]="model.username"
+            [(ngModel)]="user.username"
             type="text" 
             class="form-control me-2" 
             placeholder="username">
           <input 
             name="password"
-            [(ngModel)]="model.password"
+            [(ngModel)]="user.password"
             type="password" 
             class="form-control me-2 password-input" 
             placeholder="password">

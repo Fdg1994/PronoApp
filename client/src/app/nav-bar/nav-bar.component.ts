@@ -10,7 +10,7 @@ import { AccountService } from '../_services/account.service';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-  model: any = {};
+  user: User = {} as User;
 
   constructor(public accountService:AccountService,private router: Router,private toastr: ToastrService) { }
 
@@ -19,10 +19,10 @@ export class NavBarComponent implements OnInit {
 
 
   login() {
-    this.accountService.login(this.model).subscribe({
+    this.accountService.login(this.user).subscribe({
       next: response => {
         console.log(response);
-        this.model.role = response.role;
+        this.user.role = response.role;
       },
       error: error => this.toastr.error(error.error)      
     })
