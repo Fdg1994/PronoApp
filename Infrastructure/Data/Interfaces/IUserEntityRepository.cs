@@ -8,5 +8,7 @@ namespace Data.Interfaces
     {
         Task<UserEntity> GetUserByIdAsync(int id);
         Task<IReadOnlyList<UserEntity>> GetUsersAsync();
+        Task AddBetToUserAsync(int userId, int betId);
+        Task<IList<UserEntity>> GetBetsFromUserByIdAsync(int id);
     }
 }
