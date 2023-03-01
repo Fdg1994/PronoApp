@@ -1,3 +1,6 @@
+using System.Security.Cryptography;
+using System.Text;
+using System.Transactions;
 using Infrastructure.Data.Entities;
 using Infrastructure.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -25,20 +28,25 @@ namespace Infrastructure.Data.Repositories
             .Include(c => c.Members)
             .ToListAsync();
         }
-        public async Task AddUserToCompanyAsync(int companyId, int userId)
+        public async Task AddUserToCompanyAsync(int id,string name,string password)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.Id == userId);
-            var company = await GetCompanyByIdAsync(companyId);
+            using var hmac = new HMACSHA512();
+ 
+            var company = await GetCompanyByIdAsync(id);
             if (company == null)
             {
                 throw new ArgumentException("Company not found.");
             }
 
-            if (company.Members.Any(u => u.Id == user.Id))
+            var user = new UserEntity
             {
-                return;
-            }
-
+                UserName = name.ToLower(),
+                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password)),
+                PasswordSalt = hmac.Key,
+                CompanyEntityId = id,
+                Company = company
+            };
+            
             company.Members.Add(user);
 
             await _context.SaveChangesAsync();

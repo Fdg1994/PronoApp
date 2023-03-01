@@ -43,12 +43,13 @@ namespace API.Controllers
             };
         }
 
-        [HttpPost("{id}/{productId}")] // TO DO: add by name  
-        public async Task<ActionResult> AddUserToCompanyAsync(int id,int userId)
+        [HttpPost("{id}/{name}/{password}")]
+        [AllowAnonymous] // TO DO: authorization for manager of specific company
+        public async Task<ActionResult> AddUserToCompanyAsync(int id,string name,string password)
         {
             try
             {
-                await _repo.AddUserToCompanyAsync(id, userId);
+                await _repo.AddUserToCompanyAsync(id, name, password);
                 return Created("", null);
             }
             catch (Exception ex)
