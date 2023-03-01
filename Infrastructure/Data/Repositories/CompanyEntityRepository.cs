@@ -44,6 +44,7 @@ namespace Infrastructure.Data.Repositories
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password)),
                 PasswordSalt = hmac.Key,
                 CompanyEntityId = id,
+                CompanyRole = CompanyRole.Member,
                 Company = company
             };
             
