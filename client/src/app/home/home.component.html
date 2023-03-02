@@ -1,12 +1,30 @@
+
+
+
 <div class="container mt-5">
+
     <div class="mb-5">
+
         <table class="table">
+          <h3>COMPANIES</h3>
+          <tr>
+            <th>Logo</th>
+            <th>Name</th>
+            <th>Members</th>
+          </tr>
+          <tr  *ngFor="let company of companies">
+            <img src="https://via.placeholder.com/40x40.png?text=Company+Logo" alt="">
+            <td>{{company.name}}</td>
+            <td>member amount goes here?</td>
+            <td>
+              <button class="btn me-2">View Company</button>
+            </td>
+          </tr>
             <h3>CURRENT EVENTS</h3>
             <tr>
               <th>Title</th>
               <th>Start Date</th>
               <th>End Date</th>
-              <th>Action</th>
             </tr>
             <tr>
               <td>Jupiler Pro League</td>
