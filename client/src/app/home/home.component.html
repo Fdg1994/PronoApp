@@ -15,7 +15,7 @@
           <tr  *ngFor="let company of companies">
             <img src="https://via.placeholder.com/40x40.png?text=Company+Logo" alt="">
             <td>{{company.name}}</td>
-            <td>member amount goes here?</td>
+            <td>{{company.members.length}}</td>
             <td>
               <button class="btn me-2">View Company</button>
             </td>

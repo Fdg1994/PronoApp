@@ -9,7 +9,7 @@ namespace Infrastructure.Data.Interfaces
         Task<EventEntity> GetEventByIdAsync(int id);
         Task<IReadOnlyList<EventEntity>> GetEventsAsync();
         Task<IList<EventEntity>> GetGamesFromEventByIdAsync(int id);
-        Task AddGameToEvent(int eventId, int gameId);
-        Task DeleteGameFromEventByIdAsync(int cartId, int productId);
+        Task AddGameToEvent(int id);
+        Task DeleteGameFromEventByIdAsync(int id, int gameId);
     }
 }
