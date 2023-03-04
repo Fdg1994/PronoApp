@@ -26,20 +26,34 @@ namespace Infrastructure.Data.Repositories
             .ToListAsync();
         }
 
-        public async Task AddBetToUserAsync(int userId, int betId)
+        public async Task AddBetToUserAsync(int id, int gameId, int amount,PredictedOutcome predictedOutcome)
         {
-            var bet = await _context.Bets.SingleOrDefaultAsync(u => u.Id == userId);
-            var user = await GetUserByIdAsync(userId);
+            var user = await GetUserByIdAsync(id);
+            var game = await _context.Games.SingleOrDefaultAsync(g => g.Id == gameId);
+
             if (user == null)
             {
                 throw new ArgumentException("User not found.");
             }
 
-            if (user.Bets.Any(user => bet.Id == bet.Id))
+            if (game == null)
             {
-                return;
+                throw new ArgumentException("Game not found.");
             }
 
+            if (user.Bets.Any(b => b.UserEntityId == id && b.GameEntityId == gameId))
+            {
+                throw new ArgumentException("Bet already placed.");
+            }
+
+            var bet = new BetEntity()
+            {
+                BetAmount = amount,
+                PredictedOutcome = predictedOutcome,
+                UserEntityId = id,
+                GameEntityId = gameId
+            };
+        
             user.Bets.Add(bet);
 
             await _context.SaveChangesAsync();

@@ -15,6 +15,8 @@ namespace Infrastructure.Data.Entities
         public PredictedOutcome PredictedOutcome { get; set; }
         public  int UserEntityId { get; set; }
         public UserEntity User { get; set; }
+        public  int GameEntityId { get; set; }
+        public GameEntity Game { get; set; }
     }
 
     public enum BetStatus

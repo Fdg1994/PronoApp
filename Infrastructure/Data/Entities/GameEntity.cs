@@ -2,7 +2,10 @@ namespace Infrastructure.Data.Entities
 {
     public class GameEntity : BaseEntity
     {
-        public string Name { get; set; }
+        public string Name     
+        {
+            get { return Team1 + "-" + Team2; }
+        }
         public GameStatus Status { get; set; } = GameStatus.Upcoming;
         public DateTime StartTimeGame { get; set; }
         public DateTime EndTimeGame { get; set; }
