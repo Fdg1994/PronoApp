@@ -52,7 +52,7 @@ namespace API.Controllers
                 await _repo.AddUserToCompanyAsync(id, name, password);
                 return Created("", null);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return new BadRequestResult();
             }

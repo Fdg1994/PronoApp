@@ -65,5 +65,19 @@ namespace Infrastructure.Data.Repositories
             .Include(u => u.Bets)
             .ToListAsync();
         }
+
+
+
+        public async Task DeleteBetFromUserByIdAsync(int id, int betId)
+        {
+            var user = GetUserByIdAsync(id);
+        }
+
+        public async Task<UserEntity> GetBetFromUserByIdAsync(int id, int betId)
+        {
+            return await _context.Users.Where(u => u.Id == id)
+            .Include(u => u.Bets.Where(b => b.Id == betId))
+            .FirstOrDefaultAsync();           
+        }
     }
 }
