@@ -14,6 +14,8 @@ import { MemberListComponent } from './members/member-list/member-list.component
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { ToastrModule } from 'ngx-toastr';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { CompanyDetailsComponent } from './company-details/company-details.component';
+import { UserBetsComponent } from './user-bets/user-bets.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
     RegisterFormComponent,
     MemberListComponent,
     MemberDetailComponent,
-    AdminPanelComponent
+    AdminPanelComponent,
+    CompanyDetailsComponent,
+    UserBetsComponent
   ],
   imports: [
     BrowserModule,
