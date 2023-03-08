@@ -13,8 +13,12 @@
 
 .dropdown-menu {
     background-color: #ffc438;
-    border-radius: 0;
+    border-radius: 50;
+    width: 100%;
+    max-width: none;
 }
+
+
 
 .dropdown-item:hover {
     background-color: #d99a08;

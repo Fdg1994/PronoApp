@@ -16,6 +16,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { CompanyDetailsComponent } from './company-details/company-details.component';
 import { UserBetsComponent } from './user-bets/user-bets.component';
+import { EventDetailsComponent } from './event-details/event-details.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { UserBetsComponent } from './user-bets/user-bets.component';
     MemberDetailComponent,
     AdminPanelComponent,
     CompanyDetailsComponent,
-    UserBetsComponent
+    UserBetsComponent,
+    EventDetailsComponent
   ],
   imports: [
     BrowserModule,
