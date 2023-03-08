@@ -17,11 +17,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
    this.getCompanies();
+   console.log(this.companies);
   }
 
   getCompanies() {
-    this.http.get('https://localhost:5001/api/companies').subscribe(data => {
-      this.companies = <Company[]>data;
+    this.companyService.getCompanies().subscribe(companies => {
+      this.companies = companies;
     });
   }
 

@@ -5,7 +5,7 @@
       </div>
       <div class="col-md-8">
         <h1>{{ company.name }}</h1>
-        <p>"description goes here"</p>
+        <p *ngIf="checkIsManager()">"only managers can see this"</p>
         <h2>Members:</h2>
         <ul class="list-group">
           <li *ngFor="let member of company.members" class="list-group-item">{{ member }}</li>

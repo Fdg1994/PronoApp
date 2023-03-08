@@ -11,13 +11,13 @@ export class CompanyService {
 
   constructor(private http: HttpClient) { }
 
-  getCompanies(): Observable<Company> {
-    return this.http.get<Company>(environment.url + 'companies').pipe(
-      map(dto => ({
+  getCompanies(): Observable<Company[]> {
+    return this.http.get<Company[]>(environment.url + 'companies').pipe(
+      map(dto => dto.map(dto => ({
         name: dto.name,
         pictureUrl: dto.pictureUrl,
         members: dto.members,
-      }))
+      }) as Company))
     );
   }
 
