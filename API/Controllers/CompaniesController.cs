@@ -21,6 +21,7 @@ namespace API.Controllers
             var companies = await _repo.GetCompaniesAsync();
             var companyDtos = companies.Select(c => new CompanyDTO
             {
+                Id = c.Id,
                 Name = c.Name,
                 PictureUrl = c.PictureUrl,
                 Members = c.Members.Select(m => m.UserName).ToList()
@@ -37,6 +38,7 @@ namespace API.Controllers
 
             return new CompanyDTO
             {
+                Id = company.Id,
                 Name = company.Name,
                 PictureUrl = company.PictureUrl,
                 Members = company.Members.Select(m => m.UserName).ToList()

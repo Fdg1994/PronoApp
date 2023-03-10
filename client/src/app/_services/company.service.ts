@@ -14,16 +14,23 @@ export class CompanyService {
   getCompanies(): Observable<Company[]> {
     return this.http.get<Company[]>(environment.url + 'companies').pipe(
       map(dto => dto.map(dto => ({
+        id: dto.id,
         name: dto.name,
         pictureUrl: dto.pictureUrl,
-        members: dto.members,
+        members: dto.members
       }) as Company))
     );
   }
 
   getCompanyById(id: string): Observable<Company> {
     const url = `${environment.url+'companies'}/${id}`;
-    return this.http.get<Company>(url);
+    return this.http.get<Company>(url).pipe(
+      map(dto => ({
+        id: dto.id,
+        name: dto.name,
+        pictureUrl: dto.pictureUrl,
+        members: dto.members
+      })as Company));
   }
 }
 

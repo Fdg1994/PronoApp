@@ -1,7 +1,5 @@
-using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
-using System.Transactions;
 using API.DTOs;
 using API.Interface;
 using Infrastructure.Data;
@@ -31,7 +29,6 @@ namespace API.Controllers
             if (await CompanyExists(registerDTO.CompanyName)) return BadRequest("Company already exists.");
 
             using var hmac = new HMACSHA512();
-            using var transaction = new TransactionScope();
 
             var company = new CompanyEntity
             {
@@ -56,7 +53,6 @@ namespace API.Controllers
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-            transaction.Complete();
 
             return new UserDTO
             {

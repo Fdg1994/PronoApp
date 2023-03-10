@@ -23,7 +23,6 @@ export class NavBarComponent implements OnInit {
       next: response => {
         console.log(response);
         this.user.role = response.role;
-        console.log(this.user);
       },
       error: error => this.toastr.error(error.error)      
     })

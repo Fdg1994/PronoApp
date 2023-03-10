@@ -70,7 +70,7 @@ namespace Infrastructure.Data.Repositories
 
         public async Task DeleteBetFromUserByIdAsync(int id, int betId)
         {
-            var user = GetUserByIdAsync(id);
+            var user = await GetUserByIdAsync(id);
         }
 
         public async Task<UserEntity> GetBetFromUserByIdAsync(int id, int betId)
