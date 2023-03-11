@@ -1,4 +1,5 @@
 using API.DTOs;
+using AutoMapper;
 using Data.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Data.Entities;
@@ -11,43 +12,33 @@ namespace API.Controllers
     public class UsersController : BaseApiController
     {
         private readonly IUserEntityRepository _repo;
+        private readonly IMapper _mapper;
 
-        public UsersController(IUserEntityRepository repo)
+        public UsersController(IUserEntityRepository repo, IMapper mapper)
         {
+            _mapper = mapper;
             _repo = repo;
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult<IReadOnlyList<UserDTO>>> GetUsers()
+        public async Task<ActionResult<IReadOnlyList<MemberDTO>>> GetUsers()
         {
             var users = await _repo.GetUsersAsync();
-            var userDtos = users.Select(u => new UserDTO
-            {
-                Username = u.UserName,
-                Role = u.Role.ToString(),
-                Points = u.Points,
-                Company = u.Company.Name
-            }).ToList();
+            var usersToReturn = _mapper.Map<IReadOnlyList<MemberDTO>>(users);
 
-            return Ok(userDtos);
+            return Ok(usersToReturn);
         }
 
         [HttpGet("{id}")]
         [AllowAnonymous]
-        public async Task<ActionResult<UserDTO>> GetUser(int id)
+        public async Task<ActionResult<MemberDTO>> GetUser(int id)
         {
             var user = await _repo.GetUserByIdAsync(id);
 
-            return new UserDTO
-            {
-                Username = user.UserName,
-                Role = user.Role.ToString(),
-                Points = user.Points,
-                Company = user.Company.Name
-            };
+            return _mapper.Map<MemberDTO>(user);
         }
 
-        
+
     }
 }

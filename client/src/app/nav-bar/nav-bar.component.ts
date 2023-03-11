@@ -15,6 +15,10 @@ export class NavBarComponent implements OnInit {
   constructor(public accountService:AccountService,private router: Router,private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    const userStr = localStorage.getItem('user');
+    if (userStr) {
+      this.user = JSON.parse(userStr);
+    }
   }
 
 
