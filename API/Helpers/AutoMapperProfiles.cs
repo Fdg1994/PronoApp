@@ -8,9 +8,17 @@ namespace API.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<UserEntity,MemberDTO>();
-            CreateMap<CompanyEntity,CompanyDTO>();
-            CreateMap<EventEntity,EventDTO>();
+            CreateMap<UserEntity, MemberDTO>().ForMember(dest => dest.Company, opt => opt.MapFrom(src => src.Company));
+            CreateMap<CompanyEntity, CompanyDTO>().ForMember(dest => dest.Members, opt => opt.MapFrom(src => src.Members.Select(m => new MemberDTO
+            {
+                Username = m.UserName,
+                Email = m.Email,
+                PictureUrl = m.PictureUrl,
+                Branch = m.Branch,
+                Points = m.Points,
+                CompanyRole = m.CompanyRole.ToString(),          
+            })));
+            CreateMap<EventEntity, EventDTO>();
         }
     }
 }

@@ -1,4 +1,5 @@
 using API.DTOs;
+using AutoMapper;
 using Infrastructure.Data.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,8 +10,10 @@ namespace API.Controllers
     public class CompaniesController:BaseApiController
     {  
         private readonly ICompanyEntityRepository _repo;
-        public CompaniesController(ICompanyEntityRepository repo)
+        private readonly IMapper _mapper;
+        public CompaniesController(ICompanyEntityRepository repo,IMapper mapper)
         {
+            _mapper = mapper;
             _repo = repo;
         }
 
@@ -19,15 +22,9 @@ namespace API.Controllers
         public async Task<ActionResult<IReadOnlyList<CompanyDTO>>> GetCompaniesAsync()
         {
             var companies = await _repo.GetCompaniesAsync();
-            var companyDtos = companies.Select(c => new CompanyDTO
-            {
-                Id = c.Id,
-                Name = c.Name,
-                PictureUrl = c.PictureUrl,
-                Members = c.Members.Select(m => m.UserName).ToList()
-            }).ToList();
-
-            return Ok(companyDtos);
+            var companiesToReturn = _mapper.Map<IReadOnlyList<CompanyDTO>>(companies);
+            
+            return Ok(companiesToReturn);
         }
 
         [HttpGet("{id}")]
@@ -36,13 +33,7 @@ namespace API.Controllers
         {
             var company = await _repo.GetCompanyByIdAsync(id);
 
-            return new CompanyDTO
-            {
-                Id = company.Id,
-                Name = company.Name,
-                PictureUrl = company.PictureUrl,
-                Members = company.Members.Select(m => m.UserName).ToList()
-            };
+            return _mapper.Map<CompanyDTO>(company);
         }
 
         [HttpPost("{id}/{name}/{password}")]

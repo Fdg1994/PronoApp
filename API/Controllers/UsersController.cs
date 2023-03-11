@@ -38,7 +38,5 @@ namespace API.Controllers
 
             return _mapper.Map<MemberDTO>(user);
         }
-
-
     }
 }

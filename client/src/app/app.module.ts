@@ -17,6 +17,7 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { CompanyDetailsComponent } from './company-details/company-details.component';
 import { UserBetsComponent } from './user-bets/user-bets.component';
 import { EventDetailsComponent } from './event-details/event-details.component';
+import { EventFormComponent } from './admin-panel/event-form/event-form.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { EventDetailsComponent } from './event-details/event-details.component';
     AdminPanelComponent,
     CompanyDetailsComponent,
     UserBetsComponent,
-    EventDetailsComponent
+    EventDetailsComponent,
+    EventFormComponent
   ],
   imports: [
     BrowserModule,

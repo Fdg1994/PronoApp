@@ -9,7 +9,7 @@ namespace API.DTOs
         public int Points { get; set; }
         public string Role { get; set; }
         public int CompanyEntityId { get; set; }
-        public string Company { get; set; }
+        public CompanyDTO Company { get; set; }
         public string CompanyRole { get; set; }
     }
 }
