@@ -4,7 +4,8 @@
         <h3>EVENTS</h3>
       </div>
       <div class="col-md-6 text-end">
-        <button class="btn me-2">Add Event</button>
+        <button (click)="onAddEventClick()" class="btn me-2">Add Event</button>
+        <app-event-form *ngIf="showForm" (onCancel)="hideForm()"></app-event-form>
       </div>
     </div>
       <table class="table">

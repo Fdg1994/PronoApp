@@ -1,1 +1,17 @@
-<p>event-form works!</p>
+<form (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="event-name" class="form-label">Event Name</label>
+      <input type="text" class="form-control" id="event-name" name="event-name" required [(ngModel)]="eventName">
+    </div>
+    <div class="mb-3">
+      <label for="event-date" class="form-label">Event Date</label>
+      <input type="date" class="form-control" id="event-date" name="event-date" required [(ngModel)]="eventDate">
+    </div>
+    <div class="mb-3">
+      <label for="event-location" class="form-label">Event Location</label>
+      <input type="text" class="form-control" id="event-location" name="event-location" required [(ngModel)]="eventLocation">
+    </div>
+    <button type="submit" class="btn me-2">Confirm</button>
+    <button type="cancel" class="btn me-2" (click)="onCancelClick()">Cancel</button>
+  </form>
+  

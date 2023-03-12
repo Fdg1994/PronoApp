@@ -6,10 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-panel.component.css']
 })
 export class AdminPanelComponent implements OnInit {
+  showForm = false;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  onAddEventClick() {
+    this.showForm = true;
+  }
+
+  hideForm() {
+    this.showForm = false;
+  }
 }
