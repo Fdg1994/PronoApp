@@ -23,8 +23,6 @@ namespace API.Controllers
             var eventDtos = events.Select(e => new EventDTO
             {
                 Name = e.Name,
-                StartTimeEvent = e.StartTimeEvent,
-                EndTimeEvent = e.EndTimeEvent,
                 Games = e.Games.Select(m => m.Name).ToList()
             }).ToList();
 
@@ -40,8 +38,6 @@ namespace API.Controllers
             return new EventDTO
             {
                 Name = eventEntity.Name,
-                StartTimeEvent = eventEntity.StartTimeEvent,
-                EndTimeEvent = eventEntity.EndTimeEvent,
                 Games = eventEntity.Games.Select(m => m.Name).ToList()
             };
         }
@@ -52,7 +48,7 @@ namespace API.Controllers
         {
             try
             {
-                await _repo.AddEventAsync(eventDto.Name,eventDto.StartTimeEvent,eventDto.EndTimeEvent,eventDto.LogoUrl);
+                await _repo.AddEventAsync(eventDto.Name,eventDto.LogoUrl);
                 return eventDto;
             }
             catch (Exception)
@@ -61,14 +57,14 @@ namespace API.Controllers
             }
         }
 
-        [HttpPost("{id}/{team1}/{team2}")]
+        [HttpPost("{id}/addgame")]
         [AllowAnonymous] // TO DO: authorization for manager of specific company
-        public async Task<ActionResult> AddGameToEventAsync(int id, string team1, string team2)
+        public async Task<ActionResult<GameDTO>> AddGameToEventAsync(int id, GameDTO gameDto)
         {
             try
             {
-                await _repo.AddGameToEventAsync(id, team1, team2);
-                return Created("", null);
+                await _repo.AddGameToEventAsync(id, gameDto.Team1, gameDto.Team2);
+                return gameDto;
             }
             catch (Exception)
             {

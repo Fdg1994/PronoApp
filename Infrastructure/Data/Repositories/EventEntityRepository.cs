@@ -12,14 +12,12 @@ namespace Infrastructure.Data.Repositories
             _context = context;
         }
 
-        public async Task AddEventAsync(string name, DateTime startTime, DateTime endTime, string logo)
+        public async Task AddEventAsync(string name, string logo)
         {
             var eventEntity = new EventEntity
             {
                 Name = name,
                 logoUrl = logo,
-                StartTimeEvent = startTime,
-                EndTimeEvent = endTime,
                 Games = new List<GameEntity>()
             };
             await _context.Events.AddAsync(eventEntity);

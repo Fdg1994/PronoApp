@@ -4,7 +4,7 @@ namespace Infrastructure.Data.Interfaces
 {
     public interface IEventEntityRepository
     {
-        public Task AddEventAsync(string name, DateTime startTime, DateTime endTime, string logo);
+        public Task AddEventAsync(string name, string logo);
         Task<EventEntity> UpdateEventAsync(EventEntity eventEntity);
         Task DeleteEventByIdAsync(int id);
         Task<EventEntity> GetEventByIdAsync(int id);
