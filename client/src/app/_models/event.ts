@@ -1,6 +1,6 @@
+import { Game } from "./game";
+
 export interface Event {
     name: string;
-    start: string;
-    end: string;
-    games: string[];
+    games: Game[];
 }

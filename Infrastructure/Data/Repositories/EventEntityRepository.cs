@@ -11,6 +11,21 @@ namespace Infrastructure.Data.Repositories
         {
             _context = context;
         }
+
+        public async Task AddEventAsync(string name, DateTime startTime, DateTime endTime, string logo)
+        {
+            var eventEntity = new EventEntity
+            {
+                Name = name,
+                logoUrl = logo,
+                StartTimeEvent = startTime,
+                EndTimeEvent = endTime,
+                Games = new List<GameEntity>()
+            };
+            await _context.Events.AddAsync(eventEntity);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task AddGameToEventAsync(int id, string team1, string team2)
         {
             var eventEntity = await GetEventByIdAsync(id);
@@ -25,12 +40,12 @@ namespace Infrastructure.Data.Repositories
                 Team1 = team1,
                 Team2 = team2
             };
-            
+
             eventEntity.Games.Add(game);
 
             await _context.SaveChangesAsync();
         }
-        
+
 
         public Task DeleteEventByIdAsync(int id)
         {
@@ -59,6 +74,11 @@ namespace Infrastructure.Data.Repositories
         public Task<EventEntity> UpdateEventAsync(EventEntity eventEntity)
         {
             throw new NotImplementedException();
+        }
+
+        private async Task<bool> EventExists(string name)
+        {
+            return await _context.Events.AnyAsync(x => x.Name == name.ToLower());
         }
     }
 }

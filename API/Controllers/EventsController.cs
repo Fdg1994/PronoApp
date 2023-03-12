@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class EventsController:BaseApiController
+    [Authorize]
+    public class EventsController : BaseApiController
     {
         private readonly IEventEntityRepository _repo;
 
@@ -45,10 +46,24 @@ namespace API.Controllers
             };
         }
 
-        
+        [HttpPost("create")]
+        [AllowAnonymous]
+        public async Task<ActionResult<EventDTO>> AddEventAsync(EventDTO eventDto)
+        {
+            try
+            {
+                await _repo.AddEventAsync(eventDto.Name,eventDto.StartTimeEvent,eventDto.EndTimeEvent,eventDto.LogoUrl);
+                return eventDto;
+            }
+            catch (Exception)
+            {
+                return new BadRequestResult();
+            }
+        }
+
         [HttpPost("{id}/{team1}/{team2}")]
         [AllowAnonymous] // TO DO: authorization for manager of specific company
-        public async Task<ActionResult> AddGameToEventAsync(int id,string team1,string team2)
+        public async Task<ActionResult> AddGameToEventAsync(int id, string team1, string team2)
         {
             try
             {

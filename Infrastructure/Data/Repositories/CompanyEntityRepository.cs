@@ -47,7 +47,6 @@ namespace Infrastructure.Data.Repositories
             };
 
             company.Members.Add(user);
-
             await _context.SaveChangesAsync();
         }
 

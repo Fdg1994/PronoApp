@@ -13,7 +13,6 @@ namespace Infrastructure.Data
         public DbSet<CompanyEntity> Companies { get; set; }
         public DbSet<GameEntity> Games { get; set; }
         public DbSet<EventEntity> Events { get; set; }
-        public DbSet<PredictionGroupEntity> PredictionGroups { get; set; }
         public DbSet<BetEntity> Bets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -22,16 +21,6 @@ namespace Infrastructure.Data
             .HasOne(u => u.Company)
             .WithMany(c => c.Members)
             .HasForeignKey(u => u.CompanyEntityId);
-
-            modelBuilder.Entity<PredictionGroupEntity>()
-            .HasOne(u => u.Company)
-            .WithMany(c => c.PredictionGroups)
-            .HasForeignKey(u => u.CompanyEntityId);
-
-            modelBuilder.Entity<PredictionGroupEntity>()
-            .HasOne(u => u.Event)
-            .WithMany(c => c.PredictionGroups)
-            .HasForeignKey(u => u.EventEntityId);
 
             modelBuilder.Entity<GameEntity>()
             .HasOne(u => u.Event)

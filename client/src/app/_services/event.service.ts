@@ -15,8 +15,6 @@ export class EventService {
     return this.http.get<Event>(environment.url + 'events').pipe(
       map(dto => ({
         name:dto.name,
-        start:dto.start,
-        end:dto.end,
         games:dto.games      
       }))
     );
