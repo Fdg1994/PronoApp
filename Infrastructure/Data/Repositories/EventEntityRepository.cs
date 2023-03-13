@@ -24,7 +24,7 @@ namespace Infrastructure.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task AddGameToEventAsync(int id, string team1, string team2)
+        public async Task AddGameToEventAsync(int id, string team1, string team2,DateTime starttime,DateTime endtime)
         {
             var eventEntity = await GetEventByIdAsync(id);
             if (eventEntity == null)
@@ -36,7 +36,9 @@ namespace Infrastructure.Data.Repositories
             {
                 EventEntityId = id,
                 Team1 = team1,
-                Team2 = team2
+                Team2 = team2,
+                StartTimeGame = starttime,
+                EndTimeGame = endtime
             };
 
             eventEntity.Games.Add(game);

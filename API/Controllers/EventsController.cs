@@ -64,7 +64,7 @@ namespace API.Controllers
         {
             try
             {
-                await _repo.AddGameToEventAsync(id, gameDto.Team1, gameDto.Team2);
+                await _repo.AddGameToEventAsync(id, gameDto.Team1, gameDto.Team2,gameDto.StartTimeGame,gameDto.EndTimeGame);
                 return gameDto;
             }
             catch (Exception)

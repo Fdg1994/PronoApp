@@ -23,14 +23,20 @@
           <h3>CURRENT EVENTS</h3>
           <ng-container *ngFor="let event of events">
             <tr>
-              <td>{{event.name}}</td>
-              <td>
-                <button class="btn me-2">View</button>
-              </td>
-            </tr>
+              <td><a href=""><h5>{{event.name}}</h5></a></td>
+            </tr>           
+            <th>Game</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Score</th>
+
             <tr *ngFor="let game of event.games">
-              <td></td>
-              <td>{{game.name}} - {{game.startTime}} - {{game.endTime}} - {{game.team1Score}}-{{game.team2Score}} - <button class="btn me-2">Place Bet</button></td>
+              
+              <td>{{game.name}}</td>
+              <td>{{game.startTimeGame | date}}</td>
+               <td>{{game.endTimeGame}}</td>
+                <td>{{game.team1Score}} - {{game.team2Score}}</td>
+                <button class="btn me-2">Place Bet</button>
             </tr>
           </ng-container>
           </table>       

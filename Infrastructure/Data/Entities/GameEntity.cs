@@ -4,7 +4,7 @@ namespace Infrastructure.Data.Entities
     {
         public string Name     
         {
-            get { return Team1 + "-" + Team2; }
+            get { return Team1 + " VS " + Team2; }
         }
         public GameStatus Status { get; set; } = GameStatus.Upcoming;
         public DateTime StartTimeGame { get; set; }

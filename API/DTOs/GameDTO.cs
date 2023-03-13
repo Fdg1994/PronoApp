@@ -4,7 +4,7 @@ namespace API.DTOs
     {
         public string Name     
         {
-            get { return Team1 + "-" + Team2; }
+            get { return Team1 + " - " + Team2; }
             set {;}
         }
         public string Status { get; set; }

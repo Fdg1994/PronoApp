@@ -57,6 +57,8 @@ namespace API.Controllers
             return new UserDTO
             {
                 Username = user.UserName,
+                Role = user.Role.ToString().ToLower(),
+                Points = user.Points,
                 Token = _tokenService.CreateToken(user)
             };
         }

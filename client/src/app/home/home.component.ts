@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
    this.getCompanies();
    this.getEvents();
-   console.log(this.companies);
   }
 
   getCompanies() {

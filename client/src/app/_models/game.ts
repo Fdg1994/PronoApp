@@ -1,7 +1,7 @@
 export interface Game {
     name: string;
-    startTime: Date;
-    endTime: Date;
+    startTimeGame: Date;
+    endTimeGame: Date;
     gamestatus: string;
     team1: string;
     team2: string;
