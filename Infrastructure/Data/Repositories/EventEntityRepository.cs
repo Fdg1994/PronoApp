@@ -17,7 +17,7 @@ namespace Infrastructure.Data.Repositories
             var eventEntity = new EventEntity
             {
                 Name = name,
-                logoUrl = logo,
+                LogoUrl = logo,
                 Games = new List<GameEntity>()
             };
             await _context.Events.AddAsync(eventEntity);
@@ -45,9 +45,11 @@ namespace Infrastructure.Data.Repositories
         }
 
 
-        public Task DeleteEventByIdAsync(int id)
+        public async Task DeleteEventByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var entity = await _context.Events.FindAsync(id);
+            _context.Events.Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
         public Task DeleteGameFromEventByIdAsync(int id, int gameId)

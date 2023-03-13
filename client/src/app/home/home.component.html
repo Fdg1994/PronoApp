@@ -20,20 +20,19 @@
               <button class="btn me-2" [routerLink]="'/companies/'+company.id">View Company</button>
             </td>
           </tr>
-            <h3>CURRENT EVENTS</h3>
+          <h3>CURRENT EVENTS</h3>
+          <ng-container *ngFor="let event of events">
             <tr>
-              <th>Title</th>
-              <th>Start Date</th>
-              <th>End Date</th>
-            </tr>
-            <tr>
-              <td>Jupiler Pro League</td>
-              <td>XX-XX-XXXX</td>
-              <td>XX-XX-XXXX</td>
+              <td>{{event.name}}</td>
               <td>
                 <button class="btn me-2">View</button>
               </td>
             </tr>
+            <tr *ngFor="let game of event.games">
+              <td></td>
+              <td>{{game.name}} - {{game.startTime}} - {{game.endTime}} - {{game.team1Score}}-{{game.team2Score}} - <button class="btn me-2">Place Bet</button></td>
+            </tr>
+          </ng-container>
           </table>       
     </div>
 

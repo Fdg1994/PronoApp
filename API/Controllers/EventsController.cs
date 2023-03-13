@@ -1,4 +1,6 @@
+using System.Diagnostics;
 using API.DTOs;
+using AutoMapper;
 using Infrastructure.Data.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +11,12 @@ namespace API.Controllers
     public class EventsController : BaseApiController
     {
         private readonly IEventEntityRepository _repo;
+        private readonly IMapper _mapper;
 
-        public EventsController(IEventEntityRepository repo)
+        public EventsController(IEventEntityRepository repo, IMapper mapper)
         {
             _repo = repo;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -20,26 +24,23 @@ namespace API.Controllers
         public async Task<ActionResult<IReadOnlyList<EventDTO>>> GetEventsAsync()
         {
             var events = await _repo.GetEventsAsync();
-            var eventDtos = events.Select(e => new EventDTO
-            {
-                Name = e.Name,
-                Games = e.Games.Select(m => m.Name).ToList()
-            }).ToList();
+            var eventsToReturn = _mapper.Map<IReadOnlyList<EventDTO>>(events);
 
-            return Ok(eventDtos);
+            return Ok(eventsToReturn);
         }
 
         [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<ActionResult<EventDTO>> GetEventByIdAsync(int id)
         {
-            var eventEntity = await _repo.GetEventByIdAsync(id);
+            var eventToReturn = await _repo.GetEventByIdAsync(id);
 
-            return new EventDTO
+            if (eventToReturn == null)
             {
-                Name = eventEntity.Name,
-                Games = eventEntity.Games.Select(m => m.Name).ToList()
-            };
+                return NotFound();
+            }
+
+            return _mapper.Map<EventDTO>(eventToReturn);
         }
 
         [HttpPost("create")]
@@ -48,7 +49,7 @@ namespace API.Controllers
         {
             try
             {
-                await _repo.AddEventAsync(eventDto.Name,eventDto.LogoUrl);
+                await _repo.AddEventAsync(eventDto.Name, eventDto.LogoUrl);
                 return eventDto;
             }
             catch (Exception)
@@ -65,6 +66,22 @@ namespace API.Controllers
             {
                 await _repo.AddGameToEventAsync(id, gameDto.Team1, gameDto.Team2);
                 return gameDto;
+            }
+            catch (Exception)
+            {
+                return new BadRequestResult();
+            }
+        }
+
+        [HttpDelete("{id}/delete")]
+        [AllowAnonymous]
+
+        public async Task<IActionResult> DeleteEventByIdAsync(int id)
+        {
+            try
+            {
+                await _repo.DeleteEventByIdAsync(id);
+                return NoContent();
             }
             catch (Exception)
             {

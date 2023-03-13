@@ -16,8 +16,8 @@
             <th>End Date</th>
             <th>Action</th>
           </tr>
-          <tr>
-            <td>Jupiler Pro League</td>
+          <tr *ngFor="let event of events">
+            <td>{{event.name}}</td>
             <td>XX-XX-XXXX</td>
             <td>XX-XX-XXXX</td>
             <td>

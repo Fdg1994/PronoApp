@@ -11,12 +11,14 @@ export class EventService {
 
   constructor(private http: HttpClient) { }
 
-  getEvents(): Observable<Event> {
-    return this.http.get<Event>(environment.url + 'events').pipe(
-      map(dto => ({
+  getEvents(): Observable<Event[]> {
+    return this.http.get<Event[]>(environment.url + 'events').pipe(
+      map(dto => dto.map(dto => ({
+        id: dto.id,
         name:dto.name,
-        games:dto.games      
-      }))
+        logourl:dto.logourl,
+        games:dto.games
+      }) as Event))
     );
   }
 }

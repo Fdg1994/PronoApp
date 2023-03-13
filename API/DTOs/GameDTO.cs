@@ -5,6 +5,7 @@ namespace API.DTOs
         public string Name     
         {
             get { return Team1 + "-" + Team2; }
+            set {;}
         }
         public string Status { get; set; }
         public DateTime StartTimeGame { get; set; }

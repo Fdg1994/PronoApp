@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { EventService } from '../_services/event.service';
+import { Event } from '../_models/event';
 
 @Component({
   selector: 'app-admin-panel',
@@ -7,10 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminPanelComponent implements OnInit {
   showForm = false;
+  events: Event[] = [];
 
-  constructor() { }
+  constructor(private eventService: EventService) { }
 
   ngOnInit(): void {
+    this.getEvents();
+  }
+
+  getEvents() {
+    this.eventService.getEvents().subscribe(events => {
+    this.events = events;
+    });
   }
 
   onAddEventClick() {
