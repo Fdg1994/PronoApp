@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
   canActivate(): Observable<boolean> {
     return this.accountService.currentUser$.pipe(
       map(user => {
-        if(user?.role=='admin') return true;
+        if(user?.role=='Admin') return true;
         else
         {
           this.toastr.error('Unauthorized');

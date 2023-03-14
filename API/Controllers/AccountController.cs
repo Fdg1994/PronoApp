@@ -2,6 +2,7 @@ using System.Security.Cryptography;
 using System.Text;
 using API.DTOs;
 using API.Interface;
+using AutoMapper;
 using Infrastructure.Data;
 using Infrastructure.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +14,12 @@ namespace API.Controllers
     {
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
-        public AccountController(DataContext context,ITokenService tokenService)
+        private readonly IMapper _mapper;
+        public AccountController(DataContext context,ITokenService tokenService,IMapper mapper)
         {
             _tokenService = tokenService;
             _context = context;
-
+            _mapper = mapper;
         }
 
         [HttpPost("register")]
@@ -83,7 +85,12 @@ namespace API.Controllers
             return new UserDTO
             {
                 Username = user.UserName,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreateToken(user),
+                Role = user.Role.ToString(),
+                Points = user.Points,
+                CompanyId = user.CompanyEntityId,
+                Company = _mapper.Map<CompanyDTO>(company),
+                CompanyRole = user.CompanyRole.ToString()        
             };
         }
 

@@ -26,7 +26,6 @@ export class NavBarComponent implements OnInit {
     this.accountService.login(this.user).subscribe({
       next: response => {
         console.log(response);
-        this.user.role = response.role;
       },
       error: error => this.toastr.error(error.error)      
     })
