@@ -1,5 +1,3 @@
-using System.Security.Cryptography;
-using System.Text;
 using API.DTOs;
 using API.Interface;
 using AutoMapper;
@@ -7,6 +5,8 @@ using Infrastructure.Data;
 using Infrastructure.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace API.Controllers
 {
@@ -15,7 +15,8 @@ namespace API.Controllers
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
-        public AccountController(DataContext context,ITokenService tokenService,IMapper mapper)
+
+        public AccountController(DataContext context, ITokenService tokenService, IMapper mapper)
         {
             _tokenService = tokenService;
             _context = context;
@@ -23,7 +24,6 @@ namespace API.Controllers
         }
 
         [HttpPost("register")]
-
         public async Task<ActionResult<UserDTO>> Register(RegisterDTO registerDTO)
         {
             if (await UserExists(registerDTO.Username)) return BadRequest("Username is taken.");
@@ -40,7 +40,6 @@ namespace API.Controllers
 
             _context.Companies.Add(company);
             await _context.SaveChangesAsync();
-            
 
             var user = new UserEntity
             {
@@ -90,7 +89,7 @@ namespace API.Controllers
                 Points = user.Points,
                 CompanyId = user.CompanyEntityId,
                 Company = _mapper.Map<CompanyDTO>(company),
-                CompanyRole = user.CompanyRole.ToString()        
+                CompanyRole = user.CompanyRole.ToString()
             };
         }
 

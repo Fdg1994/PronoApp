@@ -1,18 +1,20 @@
-using System.Security.Cryptography;
-using System.Text;
 using Infrastructure.Data.Entities;
 using Infrastructure.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Infrastructure.Data.Repositories
 {
     public class CompanyEntityRepository : ICompanyEntityRepository
     {
         private readonly DataContext _context;
+
         public CompanyEntityRepository(DataContext context)
         {
             _context = context;
         }
+
         public async Task<CompanyEntity> GetCompanyByIdAsync(int id)
         {
             return await _context.Companies
@@ -26,6 +28,7 @@ namespace Infrastructure.Data.Repositories
             .Include(c => c.Members)
             .ToListAsync();
         }
+
         public async Task AddUserToCompanyAsync(int id, string name, string password)
         {
             using var hmac = new HMACSHA512();

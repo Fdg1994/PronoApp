@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using API.DTOs;
 using AutoMapper;
 using Infrastructure.Data.Interfaces;
@@ -64,7 +63,7 @@ namespace API.Controllers
         {
             try
             {
-                await _repo.AddGameToEventAsync(id, gameDto.Team1, gameDto.Team2,gameDto.StartTimeGame,gameDto.EndTimeGame);
+                await _repo.AddGameToEventAsync(id, gameDto.Team1, gameDto.Team2, gameDto.StartTimeGame, gameDto.EndTimeGame);
                 return gameDto;
             }
             catch (Exception)
@@ -75,7 +74,6 @@ namespace API.Controllers
 
         [HttpDelete("{id}/delete")]
         [AllowAnonymous]
-
         public async Task<IActionResult> DeleteEventByIdAsync(int id)
         {
             try

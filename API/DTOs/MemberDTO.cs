@@ -1,7 +1,7 @@
 namespace API.DTOs
 {
     public class MemberDTO
-    {      
+    {
         public string Username { get; set; }
         public string Email { get; set; }
         public string PictureUrl { get; set; }

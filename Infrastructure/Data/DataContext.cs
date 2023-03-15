@@ -29,8 +29,11 @@ namespace Infrastructure.Data
 
             modelBuilder.Entity<BetEntity>()
             .HasOne(u => u.User)
-            .WithMany(c => c.Bets)
+            .WithMany(u => u.Bets)
             .HasForeignKey(u => u.UserEntityId);
+
+            modelBuilder.Entity<BetEntity>()
+            .HasOne(b => b.Game).WithMany(g => g.Bets).HasForeignKey(b => b.GameEntityId);
         }
     }
 }

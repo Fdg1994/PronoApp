@@ -2,10 +2,11 @@ namespace Infrastructure.Data.Entities
 {
     public class GameEntity : BaseEntity
     {
-        public string Name     
+        public string Name
         {
             get { return Team1 + " VS " + Team2; }
         }
+
         public GameStatus Status { get; set; } = GameStatus.Upcoming;
         public DateTime StartTimeGame { get; set; }
         public DateTime EndTimeGame { get; set; }
@@ -15,6 +16,7 @@ namespace Infrastructure.Data.Entities
         public int Team2Score { get; set; }
         public int EventEntityId { get; set; }
         public EventEntity Event { get; set; }
+        public ICollection<BetEntity> Bets { get; set; }
 
         public enum GameStatus
         {

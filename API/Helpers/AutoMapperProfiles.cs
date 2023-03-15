@@ -16,9 +16,10 @@ namespace API.Helpers
                 PictureUrl = m.PictureUrl,
                 Branch = m.Branch,
                 Points = m.Points,
-                CompanyRole = m.CompanyRole.ToString(),          
+                CompanyRole = m.CompanyRole.ToString(),
             })));
 
+            CreateMap<BetEntity, BetDTO>().ForMember(dest => dest.Game, opt => opt.MapFrom(src => src.Game));
             CreateMap<GameEntity, GameDTO>().ForMember(dest => dest.Event, opt => opt.MapFrom(src => src.Event));
             CreateMap<EventEntity, EventDTO>().ForMember(dest => dest.Games, opt => opt.MapFrom(src => src.Games.Select(g => new GameDTO
             {
@@ -29,8 +30,8 @@ namespace API.Helpers
                 Team1 = g.Team1,
                 Team2 = g.Team2,
                 Team1Score = g.Team1Score,
-                Team2Score = g.Team1Score      
-            })));;
+                Team2Score = g.Team1Score
+            })));
         }
     }
 }

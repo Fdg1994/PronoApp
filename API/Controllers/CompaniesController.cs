@@ -7,11 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers
 {
     [Authorize]
-    public class CompaniesController:BaseApiController
-    {  
+    public class CompaniesController : BaseApiController
+    {
         private readonly ICompanyEntityRepository _repo;
         private readonly IMapper _mapper;
-        public CompaniesController(ICompanyEntityRepository repo,IMapper mapper)
+
+        public CompaniesController(ICompanyEntityRepository repo, IMapper mapper)
         {
             _mapper = mapper;
             _repo = repo;
@@ -23,7 +24,7 @@ namespace API.Controllers
         {
             var companies = await _repo.GetCompaniesAsync();
             var companiesToReturn = _mapper.Map<IReadOnlyList<CompanyDTO>>(companies);
-            
+
             return Ok(companiesToReturn);
         }
 
@@ -38,7 +39,7 @@ namespace API.Controllers
 
         [HttpPost("{id}/{name}/{password}")]
         [AllowAnonymous] // TO DO: authorization for manager of specific company
-        public async Task<ActionResult> AddUserToCompanyAsync(int id,string name,string password)
+        public async Task<ActionResult> AddUserToCompanyAsync(int id, string name, string password)
         {
             try
             {

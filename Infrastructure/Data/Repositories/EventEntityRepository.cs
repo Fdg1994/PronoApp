@@ -7,6 +7,7 @@ namespace Infrastructure.Data.Repositories
     public class EventEntityRepository : IEventEntityRepository
     {
         private readonly DataContext _context;
+
         public EventEntityRepository(DataContext context)
         {
             _context = context;
@@ -24,7 +25,7 @@ namespace Infrastructure.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task AddGameToEventAsync(int id, string team1, string team2,DateTime starttime,DateTime endtime)
+        public async Task AddGameToEventAsync(int id, string team1, string team2, DateTime starttime, DateTime endtime)
         {
             var eventEntity = await GetEventByIdAsync(id);
             if (eventEntity == null)
@@ -45,7 +46,6 @@ namespace Infrastructure.Data.Repositories
 
             await _context.SaveChangesAsync();
         }
-
 
         public async Task DeleteEventByIdAsync(int id)
         {

@@ -4,9 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data.Repositories
 {
-    public class UserEntityRepository:IUserEntityRepository
+    public class UserEntityRepository : IUserEntityRepository
     {
         private readonly DataContext _context;
+
         public UserEntityRepository(DataContext context)
         {
             _context = context;
@@ -26,7 +27,7 @@ namespace Infrastructure.Data.Repositories
             .ToListAsync();
         }
 
-        public async Task AddBetToUserAsync(int id, int gameId, int amount,PredictedOutcome predictedOutcome)
+        public async Task AddBetToUserAsync(int id, int gameId, int amount, string predictedOutcome)
         {
             var user = await GetUserByIdAsync(id);
             var game = await _context.Games.SingleOrDefaultAsync(g => g.Id == gameId);
@@ -48,36 +49,36 @@ namespace Infrastructure.Data.Repositories
 
             var bet = new BetEntity()
             {
-                BetAmount = amount,
-                PredictedOutcome = predictedOutcome,
                 UserEntityId = id,
-                GameEntityId = gameId
+                GameEntityId = gameId,
+                BetAmount = amount,
+                PredictedOutcome = Enum.Parse<PredictedOutcome>(predictedOutcome),
+                User = user,
+                Game = game,
             };
-        
+
             user.Bets.Add(bet);
 
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IList<UserEntity>> GetBetsFromUserByIdAsync(int id)
+        public async Task<IList<BetEntity>> GetBetsFromUserByIdAsync(int id)
         {
-            return await _context.Users.Where(u => u.Id == id)
-            .Include(u => u.Bets)
+            return await _context.Bets.Where(b => b.UserEntityId == id)
+            .Include(b => b.Game)
             .ToListAsync();
         }
-
-
 
         public async Task DeleteBetFromUserByIdAsync(int id, int betId)
         {
             var user = await GetUserByIdAsync(id);
         }
 
-        public async Task<UserEntity> GetBetFromUserByIdAsync(int id, int betId)
+        public async Task<BetEntity> GetBetFromUserByIdAsync(int id, int betId)
         {
-            return await _context.Users.Where(u => u.Id == id)
-            .Include(u => u.Bets.Where(b => b.Id == betId))
-            .FirstOrDefaultAsync();           
+            return await _context.Bets.Where(b => b.UserEntityId == id)
+            .Include(b => b.Game)
+            .FirstOrDefaultAsync();
         }
     }
 }

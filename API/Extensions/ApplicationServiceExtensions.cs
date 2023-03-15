@@ -21,7 +21,7 @@ namespace API.Extensions
             services.AddScoped<IEventEntityRepository, EventEntityRepository>();
             services.AddEndpointsApiExplorer();
             services.AddCors();
-            services.AddScoped<ITokenService,TokenService>();
+            services.AddScoped<ITokenService, TokenService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             return services;

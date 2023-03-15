@@ -1,15 +1,15 @@
 <div class="container">
-    <div class="row">
+  <div class="row">
+    <div class="col-md-10">
       <div class="col-md-2">
-        <img src="https://via.placeholder.com/150x150.png?text=Company+Logo" alt="{{ company.name }} Logo" class="img-fluid">
+        <img src="https://via.placeholder.com/150x150.png?text=Company+Logo" alt="Company Logo" class="img-fluid">
+
       </div>
-      <div class="col-md-8">
-        <h1>{{ company.name }}</h1>
-        <p *ngIf="checkIsManager()">"only managers can see this"</p>
-        <h2>Members:</h2>
-        <ul class="list-group">
-          <li *ngFor="let member of company.members" class="list-group-item">{{ member }}</li>
-        </ul>
-      </div>
+      <ul class="list-group">
+        <li class="list-group-item">Member 1</li>
+        <li class="list-group-item">Member 2</li>
+        <li class="list-group-item">Member 3</li>
+      </ul>
     </div>
   </div>
+</div>

@@ -1,5 +1,3 @@
-using Infrastructure.Data.Entities;
-
 namespace API.DTOs
 {
     public class UserDTO
@@ -11,6 +9,5 @@ namespace API.DTOs
         public CompanyDTO Company { get; set; }
         public string CompanyRole { get; set; }
         public string Token { get; set; }
-
     }
 }

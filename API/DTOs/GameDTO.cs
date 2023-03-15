@@ -2,11 +2,12 @@ namespace API.DTOs
 {
     public class GameDTO
     {
-        public string Name     
+        public string Name
         {
             get { return Team1 + " - " + Team2; }
-            set {;}
+            set {; }
         }
+
         public string Status { get; set; }
         public DateTime StartTimeGame { get; set; }
         public DateTime EndTimeGame { get; set; }

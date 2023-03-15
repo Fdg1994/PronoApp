@@ -1,5 +1,3 @@
-using Azure;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.Data.Entities
@@ -8,6 +6,7 @@ namespace Infrastructure.Data.Entities
     {
         [Required]
         public string UserName { get; set; }
+
         public string Email { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
@@ -27,9 +26,9 @@ namespace Infrastructure.Data.Entities
         User
     }
 
-       public enum CompanyRole
+    public enum CompanyRole
     {
         Manager,
         Member
-    } 
+    }
 }
