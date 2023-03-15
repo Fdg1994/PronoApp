@@ -9,11 +9,16 @@ import { AccountService } from '../_services/account.service';
   styleUrls: ['./user-bets.component.css']
 })
 export class UserBetsComponent implements OnInit {
-  user: User = {} as User;
+  bets: Bet[] = [];
 
   constructor(public accountService:AccountService) { }
 
   ngOnInit(): void {
-    
+    this.accountService.currentUser$.subscribe(currentUser => {
+      if (currentUser) {
+        this.bets = currentUser.bets;
+      }
+    });
+    console.log(this.bets);
   }
 }

@@ -4,7 +4,7 @@ using Infrastructure.Data.Entities;
 
 namespace API.Helpers
 {
-    public class AutoMapperProfiles : Profile
+    public class AutoMapperProfiles : Profile //TO DO: simplify automapper
     {
         public AutoMapperProfiles()
         {
@@ -27,7 +27,6 @@ namespace API.Helpers
 
             CreateMap<EventEntity, EventDTO>().ForMember(dest => dest.Games, opt => opt.MapFrom(src => src.Games.Select(g => new GameDTO
             {
-                Name = g.Name,
                 Status = g.Status.ToString(),
                 StartTimeGame = g.StartTimeGame,
                 EndTimeGame = g.EndTimeGame,

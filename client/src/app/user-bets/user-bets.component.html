@@ -1,1 +1,10 @@
-<p>user-bets works!</p>
+<h1>Placed Bets</h1>
+<ul>
+    <li *ngFor="let bet of bets" style="border-inline-width: 2cm;">
+      <div>
+        <p>Game:{{ bet.game.name }}</p>
+        <p>Amount: {{ bet.amount }} points</p>
+        <p>Status:{{ bet.status }}</p>
+      </div>
+    </li>
+  </ul>

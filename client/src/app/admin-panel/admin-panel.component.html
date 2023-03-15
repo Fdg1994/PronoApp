@@ -8,22 +8,34 @@
         <app-event-form *ngIf="showForm" (onCancel)="hideForm()"></app-event-form>
       </div>
     </div>
-      <table class="table">
 
+      <table class="table">
+        <ng-container *ngFor="let event of events">
           <tr>
-            <th>Title</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Action</th>
-          </tr>
-          <tr *ngFor="let event of events">
-            <td>{{event.name}}</td>
-            <td>XX-XX-XXXX</td>
-            <td>XX-XX-XXXX</td>
             <td>
+              <div class="d-flex align-items-center">
+                <a href=""><h4>{{event.name}}</h4></a> 
+                <button class="btn ms-2">Edit</button>
+                <button class="btn ms-2">Add Game</button>
+                <button class="btn ms-2">Remove</button>
+              </div>
+
+            </td>
+          </tr>           
+          <th>Game</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>Score</th>
+
+          <tr *ngFor="let game of event.games">
+            
+            <td>{{game.name}}</td>
+            <td>{{game.startTimeGame | date:'yyyy-MM-dd HH:mm'}}</td>
+             <td>{{game.endTimeGame | date:'HH:mm'}}</td>
+              <td>{{game.team1Score}} - {{game.team2Score}}</td>
               <button class="btn me-2">Edit</button>
               <button class="btn me-2">Remove</button>
-            </td>
           </tr>
+        </ng-container>
         </table>       
   </div>

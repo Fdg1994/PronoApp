@@ -1,5 +1,7 @@
 using API.DTOs;
 using AutoMapper;
+using Core.Interfaces;
+using Core.Models;
 using Data.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,53 +11,53 @@ namespace API.Controllers
     [Authorize]
     public class UsersController : BaseApiController
     {
-        private readonly IUserEntityRepository _repo;
         private readonly IMapper _mapper;
+        private readonly IUserService _userService;
 
-        public UsersController(IUserEntityRepository repo, IMapper mapper)
+        public UsersController(IMapper mapper,IUserService userService)
         {
             _mapper = mapper;
-            _repo = repo;
+            _userService = userService;
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<ActionResult<IReadOnlyList<MemberDTO>>> GetUsersAsync()
-        {
-            var users = await _repo.GetUsersAsync();
-            var usersToReturn = _mapper.Map<IReadOnlyList<MemberDTO>>(users);
+        //[HttpGet]
+        //[AllowAnonymous]
+        //public async Task<ActionResult<IReadOnlyList<MemberDTO>>> GetUsersAsync()
+        //{
+        //    var users = await _repo.GetUsersAsync();
+        //    var usersToReturn = _mapper.Map<IReadOnlyList<MemberDTO>>(users);
 
-            return Ok(usersToReturn);
-        }
+        //    return Ok(usersToReturn);
+        //}
 
-        [HttpGet("{id}")]
-        [AllowAnonymous]
-        public async Task<ActionResult<MemberDTO>> GetUserAsync(int id)
-        {
-            var user = await _repo.GetUserByIdAsync(id);
+        //[HttpGet("{id}")]
+        //[AllowAnonymous]
+        //public async Task<ActionResult<MemberDTO>> GetUserAsync(int id)
+        //{
+        //    var user = await _repo.GetUserByIdAsync(id);
 
-            return _mapper.Map<MemberDTO>(user);
-        }
+        //    return _mapper.Map<MemberDTO>(user);
+        //}
 
-        [HttpGet("{id}/bets")]
-        [AllowAnonymous]
-        public async Task<ActionResult<IReadOnlyList<BetDTO>>> GetUserBetsAsync(int id)
-        {
-            var bets = await _repo.GetBetsFromUserByIdAsync(id); //TODO: rename method in repo
+        //[HttpGet("{id}/bets")]
+        //[AllowAnonymous]
+        //public async Task<ActionResult<IReadOnlyList<BetDTO>>> GetUserBetsAsync(int id)
+        //{
+        //    var bets = await _repo.GetBetsFromUserByIdAsync(id); //TODO: rename method in repo
 
-            var betsToReturn = _mapper.Map<IReadOnlyList<BetDTO>>(bets);
+        //    var betsToReturn = _mapper.Map<IReadOnlyList<BetDTO>>(bets);
 
-            return Ok(betsToReturn);
-        }
+        //    return Ok(betsToReturn);
+        //}
 
         [HttpPost("{id}/addbet")]
         [AllowAnonymous]
-        public async Task<ActionResult<BetDTO>> AddBetToUserAsync(int id, BetDTO betDto)
+        public async Task<ActionResult<Bet>> AddBetToUserAsync(int id, Bet bet)
         {
             try
             {
-                await _repo.AddBetToUserAsync(id, betDto.GameEntityId, betDto.BetAmount, betDto.PredictedOutcome);
-                return betDto;
+                await _userService.PlaceBet(id, bet.Game, bet.PredictedOutcome, bet.BetAmount);
+                return Created("", bet);
             }
             catch (Exception)
             {

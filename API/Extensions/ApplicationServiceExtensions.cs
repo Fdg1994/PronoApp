@@ -1,5 +1,7 @@
 using API.Interface;
 using API.Services;
+using Core.Interfaces;
+using Core.Services;
 using Data.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Data.Interfaces;
@@ -19,6 +21,7 @@ namespace API.Extensions
             services.AddScoped<IUserEntityRepository, UserEntityRepository>();
             services.AddScoped<ICompanyEntityRepository, CompanyEntityRepository>();
             services.AddScoped<IEventEntityRepository, EventEntityRepository>();
+            services.AddScoped<IUserService,UserService>();
             services.AddEndpointsApiExplorer();
             services.AddCors();
             services.AddScoped<ITokenService, TokenService>();

@@ -9,8 +9,7 @@ import { EventService } from 'src/app/_services/event.service';
 })
 export class EventFormComponent {
   eventName: string = '';
-  eventDate: string = '';
-  eventLocation: string = '';
+  eventLogo: string = '';
   @Output() onCancel = new EventEmitter();
 
   visible: boolean = false;
@@ -18,12 +17,7 @@ export class EventFormComponent {
   constructor(private eventService: EventService) {}
 
   onSubmit() {
-    const formData = new FormData();
-    formData.append('event-name', this.eventName);
-    formData.append('event-date', this.eventDate);
-    formData.append('event-location', this.eventLocation);
-
-    // TODO: Send form data to server using HttpClient
+    this.eventService.addEvent(this.eventName,this.eventLogo)
 
     this.visible = false;
   }
@@ -31,4 +25,6 @@ export class EventFormComponent {
   onCancelClick() {
     this.onCancel.emit();
   }
+
+
 }

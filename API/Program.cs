@@ -1,4 +1,5 @@
 using API.Extensions;
+using Core.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
@@ -9,7 +10,8 @@ builder.Logging.AddConsole();
 builder.Services.AddControllers();
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices(builder.Configuration);
-
+builder.Services.AddAutoMapper(typeof(CoreProfile));
+    
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -8,7 +8,7 @@ namespace Data.Interfaces
 
         Task<IReadOnlyList<UserEntity>> GetUsersAsync();
 
-        Task AddBetToUserAsync(int id, int gameId, int amount, string predictedOutcome);
+        Task AddBetToUserAsync(int userId, int gameId, int amount, int predictedOutcome);
 
         Task<IList<BetEntity>> GetBetsFromUserByIdAsync(int id);
 
