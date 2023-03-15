@@ -33,8 +33,8 @@
             <tr *ngFor="let game of event.games">
               
               <td>{{game.name}}</td>
-              <td>{{game.startTimeGame | date}}</td>
-               <td>{{game.endTimeGame}}</td>
+              <td>{{game.startTimeGame | date:'yyyy-MM-dd HH:mm'}}</td>
+               <td>{{game.endTimeGame | date:'HH:mm'}}</td>
                 <td>{{game.team1Score}} - {{game.team2Score}}</td>
                 <button class="btn me-2">Place Bet</button>
             </tr>

@@ -17,6 +17,7 @@ namespace Infrastructure.Data.Repositories
         {
             return await _context.Users
                 .Include(u => u.Company)
+                .Include(u => u.Bets)
                 .SingleOrDefaultAsync(p => p.Id == id);
         }
 
@@ -24,6 +25,7 @@ namespace Infrastructure.Data.Repositories
         {
             return await _context.Users
             .Include(u => u.Company)
+            .Include(u => u.Bets)
             .ToListAsync();
         }
 
@@ -48,8 +50,6 @@ namespace Infrastructure.Data.Repositories
 
             var bet = new BetEntity()
             {
-                Game = game,
-                User= user,
                 UserEntityId = id,
                 GameEntityId = gameId,
                 BetAmount = amount,

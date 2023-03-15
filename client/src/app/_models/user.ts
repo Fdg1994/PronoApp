@@ -1,6 +1,8 @@
+import { Bet } from "./bet";
 import { Company } from "./company";
 
 export interface User {
+    id: number;
     username: string;
     password: string;
     companyid: number;
@@ -9,5 +11,6 @@ export interface User {
     token: string;
     role: string;
     points: number;
+    bets: Bet[];
 }
 

@@ -69,6 +69,7 @@ namespace API.Controllers
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == loginDTO.Username);
             var company = await _context.Companies.FirstOrDefaultAsync(c => c.Id == user.CompanyEntityId);
+            var bets = await _context.Bets.Where(b => b.UserEntityId == user.Id).Include(b => b.Game).ToListAsync();
 
             if (user == null) return Unauthorized("User does not exist");
 
@@ -83,13 +84,15 @@ namespace API.Controllers
 
             return new UserDTO
             {
+                Id = user.Id,
                 Username = user.UserName,
                 Token = _tokenService.CreateToken(user),
                 Role = user.Role.ToString(),
                 Points = user.Points,
                 CompanyId = user.CompanyEntityId,
                 Company = _mapper.Map<CompanyDTO>(company),
-                CompanyRole = user.CompanyRole.ToString()
+                CompanyRole = user.CompanyRole.ToString(),
+                Bets = _mapper.Map<ICollection<BetDTO>>(bets)
             };
         }
 

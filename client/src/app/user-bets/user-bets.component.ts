@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Bet } from '../_models/bet';
+import { User } from '../_models/user';
+import { AccountService } from '../_services/account.service';
 
 @Component({
   selector: 'app-user-bets',
@@ -6,10 +9,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-bets.component.css']
 })
 export class UserBetsComponent implements OnInit {
+  user: User = {} as User;
 
-  constructor() { }
+  constructor(public accountService:AccountService) { }
 
   ngOnInit(): void {
+    
   }
-
 }

@@ -6,6 +6,7 @@ import { EventDetailsComponent } from './event-details/event-details.component';
 import { HomeComponent } from './home/home.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
+import { UserBetsComponent } from './user-bets/user-bets.component';
 import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
@@ -26,6 +27,14 @@ const routes: Routes = [
       }     
     ]
   },
+  {path:'bets',
+  children: [
+    {
+        path:':id',
+        component: UserBetsComponent
+    }     
+  ]
+},
   {path:'events',
   children: [
     {
