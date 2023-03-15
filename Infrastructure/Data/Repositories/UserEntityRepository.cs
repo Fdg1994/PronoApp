@@ -29,8 +29,10 @@ namespace Infrastructure.Data.Repositories
 
         public async Task AddBetToUserAsync(int id, int gameId, int amount, string predictedOutcome)
         {
-            var user = await GetUserByIdAsync(id);
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.Id == id);
             var game = await _context.Games.SingleOrDefaultAsync(g => g.Id == gameId);
+
+
 
             if (user == null)
             {
@@ -42,22 +44,23 @@ namespace Infrastructure.Data.Repositories
                 throw new ArgumentException("Game not found.");
             }
 
-            if (user.Bets.Any(b => b.UserEntityId == id && b.GameEntityId == gameId))
-            {
-                throw new ArgumentException("Bet already placed.");
-            }
+            var bets = user.Bets ?? new List<BetEntity>();
 
             var bet = new BetEntity()
             {
+                Game = game,
+                User= user,
                 UserEntityId = id,
                 GameEntityId = gameId,
                 BetAmount = amount,
-                PredictedOutcome = Enum.Parse<PredictedOutcome>(predictedOutcome),
-                User = user,
-                Game = game,
+                PredictedOutcome = Enum.Parse<PredictedOutcome>(predictedOutcome.ToCharArray())
             };
 
+            user.Bets = bets;
+
             user.Bets.Add(bet);
+
+
 
             await _context.SaveChangesAsync();
         }
