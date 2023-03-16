@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Data.Entities
+﻿using Core.Enums;
+
+namespace Infrastructure.Data.Entities
 {
     public class BetEntity : BaseEntity
     {
@@ -11,20 +13,5 @@
         public UserEntity User { get; set; }
         public int GameEntityId { get; set; }
         public GameEntity Game { get; set; }
-    }
-
-    public enum BetStatus
-    {
-        Placed,
-        Won,
-        Lost,
-        Refunded
-    }
-
-    public enum PredictedOutcome
-    {
-        Team1,
-        Team2,
-        Draw
     }
 }

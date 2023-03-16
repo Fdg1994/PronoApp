@@ -1,3 +1,4 @@
+using Core.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace Infrastructure.Data.Entities
@@ -15,19 +16,7 @@ namespace Infrastructure.Data.Entities
         public UserRole Role { get; set; } = UserRole.User;
         public int CompanyEntityId { get; set; }
         public CompanyEntity Company { get; set; }
-        public CompanyRole CompanyRole { get; set; } = CompanyRole.Member;
+        public CompanyMemberRole CompanyRole { get; set; } = CompanyMemberRole.Member;
         public ICollection<BetEntity> Bets { get; set; }
-    }
-
-    public enum UserRole
-    {
-        Admin,
-        User
-    }
-
-    public enum CompanyRole
-    {
-        Manager,
-        Member
     }
 }

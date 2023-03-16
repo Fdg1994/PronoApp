@@ -1,8 +1,6 @@
-using API.DTOs;
 using AutoMapper;
 using Core.Interfaces;
 using Core.Models;
-using Data.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -56,7 +54,7 @@ namespace API.Controllers
         {
             try
             {
-                await _userService.PlaceBet(id, bet.Game, bet.PredictedOutcome, bet.BetAmount);
+                await _userService.PlaceBet(id, bet.Game,(int) bet.PredictedOutcome, bet.BetAmount);
                 return Created("", bet);
             }
             catch (Exception)

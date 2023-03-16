@@ -1,3 +1,4 @@
+using Core.Enums;
 using Infrastructure.Data.Entities;
 using Infrastructure.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -45,7 +46,7 @@ namespace Infrastructure.Data.Repositories
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password)),
                 PasswordSalt = hmac.Key,
                 CompanyEntityId = id,
-                CompanyRole = CompanyRole.Member,
+                CompanyRole = CompanyMemberRole.Member,
                 Company = company
             };
 

@@ -1,3 +1,5 @@
+using Core.Enums;
+
 namespace Infrastructure.Data.Entities
 {
     public class GameEntity : BaseEntity
@@ -13,13 +15,5 @@ namespace Infrastructure.Data.Entities
         public int EventEntityId { get; set; }
         public EventEntity Event { get; set; }
         public ICollection<BetEntity> Bets { get; set; }
-
-        public enum GameStatus
-        {
-            Upcoming,
-            InProgress,
-            Completed,
-            Cancelled
-        }
     }
 }

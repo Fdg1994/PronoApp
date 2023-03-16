@@ -3,8 +3,6 @@ using Core.Configuration;
 using Core.Interfaces;
 using Core.Models;
 using Core.Services;
-using Data.Interfaces;
-using Infrastructure.Data.Entities;
 using Moq;
 
 namespace Core.Test
@@ -17,20 +15,20 @@ namespace Core.Test
         [SetUp]
         public void Setup()
         {
-            Mock<IUserEntityRepository> userEntityRepository = new Mock<IUserEntityRepository>();
-            userEntityRepository.Setup(x => x.GetUserByIdAsync(1)).ReturnsAsync(GetDummyUser());
+            Mock<IUserRepository> userRepository = new Mock<IUserRepository>();
+            userRepository.Setup(x => x.GetUserByIdAsync(1)).ReturnsAsync(GetDummyUser());
 
             var config = new MapperConfiguration(m => m.AddProfile<CoreProfile>());
             var mapper = config.CreateMapper();
 
             game = new Game();
 
-            _userService = new UserService(userEntityRepository.Object, mapper);
+            _userService = new UserService(userRepository.Object, mapper);
         }
 
-        private UserEntity GetDummyUser()
+        private User GetDummyUser()
         {
-            return new UserEntity
+            return new User
             {
                 Id = 1,
                 Points = 10,
@@ -41,7 +39,7 @@ namespace Core.Test
         public async Task WhenUserPlacesBet_ThenSubstractPointsFromUserPointsAsync()
         {
             //Arrange
-            PredictedOutcome teamId = PredictedOutcome.Team2;
+            int teamId = 2;
 
             //Act
             User user = await _userService.PlaceBet(1, game, teamId);
@@ -54,7 +52,7 @@ namespace Core.Test
         public async Task WhenUserPlacesBet_ThenAddPointToBetAsync()
         {
             //Arrange
-            var teamId = PredictedOutcome.Team2;
+            var teamId = 2;
             int betAmount = 5;
 
             //Act

@@ -1,4 +1,5 @@
-﻿using Data.Interfaces;
+﻿using Core.Enums;
+using Data.Interfaces;
 using Infrastructure.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
