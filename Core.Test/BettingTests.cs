@@ -3,6 +3,7 @@ using Core.Configuration;
 using Core.Interfaces;
 using Core.Models;
 using Core.Services;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using Moq;
 
 namespace Core.Test
@@ -40,12 +41,12 @@ namespace Core.Test
         {
             //Arrange
             int teamId = 2;
-
+            int betAmount = 5;
             //Act
-            User user = await _userService.PlaceBet(1, game, teamId);
+            User user = await _userService.PlaceBet(1, game, teamId,betAmount);
 
             //Assert
-            Assert.That(user.Points, Is.EqualTo(9));
+            Assert.That(user.Points, Is.EqualTo(5));
         }
 
         [Test]
@@ -61,6 +62,31 @@ namespace Core.Test
             //Assert
             Assert.That(user.Bets.Count, Is.EqualTo(1));
             Assert.That(user.Bets[0].BetAmount, Is.EqualTo(5));
+        }
+
+        [Test]
+        public async Task HasGameStarted_ThenDontPlaceBetAndThrowException()
+        {
+            //Arrange
+            game.StartTimeGame = DateTime.Now.Add(TimeSpan.FromHours(1));
+            var teamId = 2;
+            int betAmount = 5;
+
+            //Act & Assert
+            var ex = Assert.ThrowsAsync<Exception>(async () => await _userService.PlaceBet(1, game,teamId, betAmount));
+            Assert.AreEqual("Game has already started", ex.Message);
+        }
+
+        [Test]
+        public async Task IfBetAmountIsMoreThanUserPoints_ThenDontPlaceBetAndThrowException()
+        {
+            //Arrange
+            var teamId = 2;
+            int betAmount = 15;
+
+            //Act & Assert
+            var ex = Assert.ThrowsAsync<Exception>(async () => await _userService.PlaceBet(1, game, teamId, betAmount));
+            Assert.AreEqual("Bet amount exceeds available points", ex.Message);
         }
     }
 }

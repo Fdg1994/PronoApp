@@ -5,6 +5,6 @@ namespace Core.Interfaces
 {
     public interface IUserService
     {
-        Task<User> PlaceBet(int userId, Game game, int betOutcome, int betAmount = 1);
+        Task<User> PlaceBet(int userId, Game game, int betOutcome, int betAmount);
     }
 }

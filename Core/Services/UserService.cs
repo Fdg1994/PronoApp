@@ -15,11 +15,21 @@ namespace Core.Services
             _mapper = mapper;
         }
 
-        public async Task<User> PlaceBet(int userId, Game game, int betOutcome, int betAmount = 1)
+        public async Task<User> PlaceBet(int userId, Game game, int betOutcome, int betAmount)
         {
             User user = await GetUser(userId);
 
-            user.Points--;
+            if(game.StartTimeGame > DateTime.Now)
+            {
+                throw new Exception("Game has already started");
+            }
+
+            if (betAmount > user.Points)
+            {
+                throw new Exception("Bet amount exceeds available points");
+            }
+
+            user.Points -= betAmount;
             var bet = new Bet
             {
                 User = user,
