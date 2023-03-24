@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
-using Core.Interfaces;
+using Core.Application.Contracts.Persistence;
+using Core.Domain.Entities;
 using Core.Models;
+using Core.Services.Users;
 
 namespace Core.Services
 {
@@ -19,7 +21,7 @@ namespace Core.Services
         {
             User user = await GetUser(userId);
 
-            if(game.StartTimeGame > DateTime.Now)
+            if (game.StartTimeGame > DateTime.Now)
             {
                 throw new Exception("Game has already started");
             }
@@ -27,6 +29,11 @@ namespace Core.Services
             if (betAmount > user.Points)
             {
                 throw new Exception("Bet amount exceeds available points");
+            }
+
+            if (user.Bets.Any(b => b.User.Id == user.Id && b.Game.Id == game.Id))
+            {
+                throw new Exception("Bet already placed");
             }
 
             user.Points -= betAmount;
@@ -37,6 +44,7 @@ namespace Core.Services
                 Game = game,
                 BetAmount = betAmount
             };
+
             user.Bets.Add(bet);
 
             await _userRepository.AddBetToUserAsync(user.Id, game.Id, bet.BetAmount, (int)bet.PredictedOutcome);
@@ -45,7 +53,7 @@ namespace Core.Services
 
         private async Task<User> GetUser(int userId)
         {
-            User entity = await _userRepository.GetUserByIdAsync(userId);
+            UserEntity entity = await _userRepository.GetByIdAsync(userId);
             User model = _mapper.Map<User>(entity);
 
             return model;

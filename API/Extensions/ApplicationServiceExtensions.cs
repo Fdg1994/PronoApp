@@ -1,11 +1,10 @@
 using API.Interface;
 using API.Services;
-using Core.Interfaces;
-using Core.Services;
 using Data.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Data.Interfaces;
 using Infrastructure.Data.Repositories;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Extensions
@@ -26,6 +25,7 @@ namespace API.Extensions
             services.AddCors();
             services.AddScoped<ITokenService, TokenService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
 
             return services;
         }

@@ -1,7 +1,6 @@
 ﻿using Core.Models;
 
-
-namespace Core.Interfaces
+namespace Core.Services.Users
 {
     public interface IUserService
     {

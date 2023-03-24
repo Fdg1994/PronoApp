@@ -5,10 +5,12 @@ namespace Core.Models
     public class Game
     {
         public int Id { get; set; }
+
         public string Name
         {
             get { return $"{Team1.Name} VS {Team2.Name}"; }
         }
+
         public GameStatus Status { get; set; } = GameStatus.Upcoming;
         public DateTime StartTimeGame { get; set; }
         public DateTime EndTimeGame { get; set; }

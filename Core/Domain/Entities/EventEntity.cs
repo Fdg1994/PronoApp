@@ -1,4 +1,4 @@
-namespace Infrastructure.Data.Entities
+namespace Core.Domain.Entities
 {
     public class EventEntity : BaseEntity
     {

@@ -22,7 +22,7 @@ namespace API.Helpers
             CreateMap<BetEntity, BetDTO>()
             .ForMember(dest => dest.Game, opt => opt.MapFrom(src => src.Game))
             .ForMember(dest => dest.User, opt => opt.MapFrom(src => src.User));
-            
+
             CreateMap<GameEntity, GameDTO>().ForMember(dest => dest.Event, opt => opt.MapFrom(src => src.Event));
 
             CreateMap<EventEntity, EventDTO>().ForMember(dest => dest.Games, opt => opt.MapFrom(src => src.Games.Select(g => new GameDTO
@@ -36,7 +36,7 @@ namespace API.Helpers
                 Team2Score = g.Team1Score
             })));
 
-             CreateMap<UserEntity, UserDTO>().ForMember(dest => dest.Bets, opt => opt.MapFrom(src => src.Bets.Select(b => new BetDTO
+            CreateMap<UserEntity, UserDTO>().ForMember(dest => dest.Bets, opt => opt.MapFrom(src => src.Bets.Select(b => new BetDTO
             {
                 OpenBetTime = b.OpenBetTime,
                 CloseBetTime = b.CloseBetTime,
@@ -45,7 +45,6 @@ namespace API.Helpers
                 PredictedOutcome = b.PredictedOutcome.ToString(),
                 GameEntityId = b.GameEntityId
             })));
-
         }
     }
 }

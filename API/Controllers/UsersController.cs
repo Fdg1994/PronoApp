@@ -1,6 +1,6 @@
 using AutoMapper;
-using Core.Interfaces;
 using Core.Models;
+using Core.Services.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,7 +12,7 @@ namespace API.Controllers
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
 
-        public UsersController(IMapper mapper,IUserService userService)
+        public UsersController(IMapper mapper, IUserService userService)
         {
             _mapper = mapper;
             _userService = userService;
@@ -54,7 +54,7 @@ namespace API.Controllers
         {
             try
             {
-                await _userService.PlaceBet(id, bet.Game,(int) bet.PredictedOutcome, bet.BetAmount);
+                await _userService.PlaceBet(id, bet.Game, (int)bet.PredictedOutcome, bet.BetAmount);
                 return Created("", bet);
             }
             catch (Exception)

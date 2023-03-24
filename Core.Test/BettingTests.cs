@@ -1,9 +1,10 @@
 using AutoMapper;
+using Core.Application.Contracts.Persistence;
 using Core.Configuration;
-using Core.Interfaces;
+using Core.Domain.Entities;
 using Core.Models;
 using Core.Services;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel;
+using Core.Services.Users;
 using Moq;
 
 namespace Core.Test
@@ -12,28 +13,49 @@ namespace Core.Test
     {
         private IUserService _userService;
         private Game game;
+        private User user;
+        private Bet bet;
 
         [SetUp]
         public void Setup()
         {
             Mock<IUserRepository> userRepository = new Mock<IUserRepository>();
-            userRepository.Setup(x => x.GetUserByIdAsync(1)).ReturnsAsync(GetDummyUser());
+            userRepository.Setup(x => x.GetByIdAsync(1)).ReturnsAsync(GetDummyUser());
 
             var config = new MapperConfiguration(m => m.AddProfile<CoreProfile>());
             var mapper = config.CreateMapper();
 
             game = new Game();
+            user = GetDummyUser();
 
             _userService = new UserService(userRepository.Object, mapper);
         }
 
-        private User GetDummyUser()
+        private UserEntity GetDummyUser()
         {
-            return new User
+            var user = new UserEntity
             {
                 Id = 1,
                 Points = 10,
             };
+
+            var game = new GameEntity
+            {
+                Id = 1,
+                Team1 = new TeamEntity(),
+                Team2 = new TeamEntity(),
+            };
+
+            var newBet = new BetEntity
+            {
+                Id = 1,
+                Game = game,
+                User = user
+            };
+
+            user.Bets.Add(newBet);
+
+            return user;
         }
 
         [Test]
@@ -43,7 +65,7 @@ namespace Core.Test
             int teamId = 2;
             int betAmount = 5;
             //Act
-            User user = await _userService.PlaceBet(1, game, teamId,betAmount);
+            User user = await _userService.PlaceBet(1, game, teamId, betAmount);
 
             //Assert
             Assert.That(user.Points, Is.EqualTo(5));
@@ -57,11 +79,11 @@ namespace Core.Test
             int betAmount = 5;
 
             //Act
-            User user  = await _userService.PlaceBet(1, game, teamId, betAmount);
+            User user = await _userService.PlaceBet(1, game, teamId, betAmount);
 
             //Assert
-            Assert.That(user.Bets.Count, Is.EqualTo(1));
-            Assert.That(user.Bets[0].BetAmount, Is.EqualTo(5));
+            Assert.That(user.Bets.Count, Is.EqualTo(2));
+            Assert.That(user.Bets[1].BetAmount, Is.EqualTo(5));
         }
 
         [Test]
@@ -73,7 +95,7 @@ namespace Core.Test
             int betAmount = 5;
 
             //Act & Assert
-            var ex = Assert.ThrowsAsync<Exception>(async () => await _userService.PlaceBet(1, game,teamId, betAmount));
+            var ex = Assert.ThrowsAsync<Exception>(async () => await _userService.PlaceBet(1, game, teamId, betAmount));
             Assert.AreEqual("Game has already started", ex.Message);
         }
 
@@ -87,6 +109,29 @@ namespace Core.Test
             //Act & Assert
             var ex = Assert.ThrowsAsync<Exception>(async () => await _userService.PlaceBet(1, game, teamId, betAmount));
             Assert.AreEqual("Bet amount exceeds available points", ex.Message);
+        }
+
+        [Test]
+        public async Task IfBetAlreadyExists_ThenDontPlaceBetAndThrowException()
+        {
+            //Arrange
+            var teamId = 2;
+            int betAmount = 5;
+            game.Id = 1;
+
+            //Act & Assert
+            var ex = Assert.ThrowsAsync<Exception>(async () => await _userService.PlaceBet(1, game, teamId, betAmount));
+            Assert.AreEqual("Bet already placed", ex.Message);
+        }
+
+        [Test]
+        public async Task IfUserIsAdmin_ThenDontPlaceBetAndThrowException()
+        {
+            //Arrange
+
+            //Act
+
+            //Assert
         }
     }
 }

@@ -1,12 +1,13 @@
 using Core.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace Infrastructure.Data.Entities
+namespace Core.Domain.Entities
 {
     public class UserEntity : BaseEntity
     {
         [Required]
         public string UserName { get; set; }
+
         public string Email { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }

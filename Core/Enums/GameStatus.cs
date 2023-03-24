@@ -1,10 +1,10 @@
 ﻿namespace Core.Enums
 {
     public enum GameStatus
-        {
-            Upcoming,
-            InProgress,
-            Completed,
-            Cancelled
-        }
+    {
+        Upcoming,
+        InProgress,
+        Completed,
+        Cancelled
+    }
 }

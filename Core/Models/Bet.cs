@@ -4,6 +4,7 @@ namespace Core.Models
 {
     public class Bet
     {
+        public int Id { get; set; }
         public DateTime OpenBetTime { get; set; }
         public DateTime CloseBetTime { get; set; }
         public BetStatus Status { get; set; } = BetStatus.Placed;

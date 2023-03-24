@@ -1,6 +1,6 @@
 ﻿using Core.Enums;
 
-namespace Infrastructure.Data.Entities
+namespace Core.Domain.Entities
 {
     public class BetEntity : BaseEntity
     {
